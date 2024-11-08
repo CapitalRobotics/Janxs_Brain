@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp
-public class ArmMove extends LinearOpMode {
+@TeleOp(name = "ArmMove1.5")
+public class ArmMove1 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Position of the arm when it's down
