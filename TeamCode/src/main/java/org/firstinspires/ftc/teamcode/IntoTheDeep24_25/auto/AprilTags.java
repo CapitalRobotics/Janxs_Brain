@@ -12,7 +12,6 @@ import org.firstinspires.ftc.teamcode.PowerPlay23_24.TemplateJanx;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
