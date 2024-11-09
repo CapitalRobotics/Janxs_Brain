@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
 
 public class PIDTemplate {
     private double kP;  // Proportional gain
@@ -10,11 +10,22 @@ public class PIDTemplate {
     private double integralSum = 0;      // Sum of errors over time, used for the integral term
     private double setpoint = 0;         // Desired target value (position, speed, etc.)
 
+
     // Constructor to initialize PID coefficients
     public PIDTemplate(double kP, double kI, double kD) {
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
+    }
+
+    int time = 0;
+
+    public void resetTime() {
+        time = 0;
+    }
+
+    private void get_Time() {
+        time++;
     }
 
     // Set the target value for the PID controller
@@ -42,6 +53,33 @@ public class PIDTemplate {
         // Return the calculated output, which can be used to set motor power
         return output;
     }
-
-
 }
+//    public double update(int target, int current){
+//        int current_time = time;
+//        int error = target - current;
+//        int p =kP*
+        /*
+        current_time = get_current_time()
+   current_error = desire_position-current_position
+
+   p = k_p * current_error
+
+   i += k_i * (current_error * (current_time - previous_time))
+
+   if i > max_i:
+       i = max_i
+   elif i < -max_i:
+       i = -max_i
+
+   D = k_d * (current_error - previous_error) / (current_time - previous_time)
+
+   output = p + i + d
+
+   previous_error = current_error
+   previous_time = current_time
+        */
+    //}
+    //and then calling it would be control.update(whatever,whatever).motor.setPower(command);//reset time after position gets hit.
+
+
+//}
