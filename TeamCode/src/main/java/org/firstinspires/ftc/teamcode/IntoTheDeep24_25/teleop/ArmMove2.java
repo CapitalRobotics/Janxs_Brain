@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;

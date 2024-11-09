@@ -1,18 +1,18 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "ArmMove1.5")
-public class ArmMove1 extends LinearOpMode {
+@TeleOp
+public class ArmMove extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Position of the arm when it's down
         int armUpPosition = 30;
 
         // Position of the arm when it's lifted
-        int armDownPosition = 150;
+        int armDownPosition = 170;
 
         // Find a motor in the hardware map named "Arm Motor"
         DcMotor armMotor = hardwareMap.dcMotor.get("arm");
