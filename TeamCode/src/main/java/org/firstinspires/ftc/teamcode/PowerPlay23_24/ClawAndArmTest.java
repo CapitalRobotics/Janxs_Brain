@@ -1,11 +1,13 @@
 
 package org. firstinspires. ftc. teamcode. PowerPlay23_24;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
+@Disabled
 @TeleOp(name = "Claw")
 public class ClawAndArmTest extends LinearOpMode {
     private Servo clawLeft;

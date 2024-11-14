@@ -1,4 +1,5 @@
 package org. firstinspires. ftc. teamcode. PowerPlay23_24;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import static com.qualcomm.robotcore.util.Range.clip;
 
-
+@Disabled
 @TeleOp(name = "DriverControl")
 public class teleop extends OpMode {
     private DcMotorEx frontRight;
