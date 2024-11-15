@@ -196,10 +196,12 @@ public class RedLeft extends LinearOpMode {
         armMotor.setPower(0); // Stop motor when done
     }
 
-    // Dummy ascent method (replace with actual ascent code if needed)
+    // Raise the arm to its ascent position
     private void ascent() {
+        int ascentPosition = 200;
         telemetry.addData("Action", "Ascent");
         telemetry.update();
-        sleep(2000); // Placeholder for ascent action
+        moveArm(ascentPosition);
+        sleep(500);
     }
 }
