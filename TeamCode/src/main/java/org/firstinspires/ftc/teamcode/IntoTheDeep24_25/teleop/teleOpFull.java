@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto.pidMaybe;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 
 @TeleOp(name = "letMeMoveItMoveIt")
@@ -26,6 +25,7 @@ boolean flag = false;
     int armDownPosition = 150;
     // Find a motor in the hardware map named "Arm Motor"
 
+    int pos = armUpPosition;
     @Override
     public void init() {
         DcMotorEx armMotor = hardwareMap.get(DcMotorEx.class, "arm");
@@ -74,7 +74,6 @@ boolean flag = false;
         }
     }
     private int getPosition(){
-        int pos = 0;
         if (gamepad2.a) {
             flag = !flag;
         }

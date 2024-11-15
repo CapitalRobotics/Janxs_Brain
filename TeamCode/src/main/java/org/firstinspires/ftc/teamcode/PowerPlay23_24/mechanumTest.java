@@ -4,7 +4,10 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import static com.qualcomm.robotcore.util.Range.clip;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.TemplateJanx;
 
 @Disabled
 @TeleOp(name = "MechanumTest")
@@ -36,9 +39,7 @@ public class mechanumTest extends LinearOpMode {
             while (opModeIsActive()) {
                 // Put loop blocks here.
                 mecanum(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
-                telemetry.addData("Y", gamepad1.left_stick_y);
-                telemetry.addData("X", gamepad1.left_stick_x);
-                telemetry.update();
+
             }
         }
     }

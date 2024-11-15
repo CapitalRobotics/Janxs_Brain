@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import static java.lang.Thread.sleep;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -61,32 +60,32 @@ public class TemplateJanx {
         fr.setPower(0);
     }
 
-    public void clawInit(String leftClaw, String rightClaw, String nodder) {
-        nod = hwMap.get(DcMotorEx.class, nodder);
-        nod.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        nod.setDirection(DcMotor.Direction.FORWARD);
-        lc = hwMap.get(Servo.class, leftClaw);
-        rc = hwMap.get(Servo.class, rightClaw);
-    }
+    /*    public void clawInit(String leftClaw, String rightClaw, String nodder) {
+            nod = hwMap.get(DcMotorEx.class, nodder);
+            nod.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            nod.setDirection(DcMotor.Direction.FORWARD);
+            lc = hwMap.get(Servo.class, leftClaw);
+            rc = hwMap.get(Servo.class, rightClaw);
+        }
 
-    public void armInit(String armextend, String armTurn, String left, String right) {
-        sl = hwMap.get(DcMotorEx.class, left);
-        sr = hwMap.get(DcMotorEx.class, right);
-        turn = hwMap.get(DcMotorEx.class, armTurn);
+        public void armInit(String armextend, String armTurn, String left, String right) {
+            sl = hwMap.get(DcMotorEx.class, left);
+            sr = hwMap.get(DcMotorEx.class, right);
+            turn = hwMap.get(DcMotorEx.class, armTurn);
 
-        turn.setDirection(DcMotor.Direction.FORWARD);
-        turn.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        turn.setPower(0);
+            turn.setDirection(DcMotor.Direction.FORWARD);
+            turn.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            turn.setPower(0);
 
-        sl.setDirection(DcMotor.Direction.FORWARD);
-        sl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        sl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        sl.setPower(0);
+            sl.setDirection(DcMotor.Direction.FORWARD);
+            sl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            sl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            sl.setPower(0);
 
-        sr.setDirection(DcMotor.Direction.REVERSE);
-        sr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        sr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        sr.setPower(0);
-    }
+            sr.setDirection(DcMotor.Direction.REVERSE);
+            sr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            sr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            sr.setPower(0);
+    }*/
 
 }

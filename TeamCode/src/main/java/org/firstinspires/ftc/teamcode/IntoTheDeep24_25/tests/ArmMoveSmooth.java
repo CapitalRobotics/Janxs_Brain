@@ -1,11 +1,12 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
-
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.tests;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+@Disabled
 @TeleOp
-public class MoveArm extends LinearOpMode {
+public class ArmMoveSmooth extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Position of the arm when it's down
@@ -24,6 +25,9 @@ public class MoveArm extends LinearOpMode {
         armMotor.setTargetPosition(armDownPosition);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+        // Initialize Butter class with parameters
+        Butter butter = new Butter(1.0, 0.2, 50, 5);
+
         waitForStart();
 
         while (opModeIsActive()) {
@@ -31,28 +35,29 @@ public class MoveArm extends LinearOpMode {
             if (gamepad2.a) {
                 armMotor.setTargetPosition(armUpPosition);
                 armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armMotor.setPower(0.2);
             }
 
             // If the B button is pressed, lower the arm
             if (gamepad2.b) {
                 armMotor.setTargetPosition(armDownPosition);
                 armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armMotor.setPower(0.2);
             }
 
-
             // Get the current position of the armMotor
-            double position = armMotor.getCurrentPosition();
+            int currentPosition = armMotor.getCurrentPosition();
 
             // Get the target position of the armMotor
-            double desiredPosition = armMotor.getTargetPosition();
+            int targetPosition = armMotor.getTargetPosition();
+
+            // Calculate power using Butter algorithm
+            double power = butter.calculatePower(currentPosition, targetPosition);
+            armMotor.setPower(power);
 
             // Show the position of the armMotor on telemetry
-            telemetry.addData("Encoder Position", position);
+            telemetry.addData("Encoder Position", currentPosition);
 
             // Show the target position of the armMotor on telemetry
-            telemetry.addData("Desired Position", desiredPosition);
+            telemetry.addData("Desired Position", targetPosition);
 
             telemetry.update();
         }
