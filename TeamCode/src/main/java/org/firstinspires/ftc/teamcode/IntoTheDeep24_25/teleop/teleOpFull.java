@@ -28,8 +28,9 @@ boolean flag = false;
     int pos = armUpPosition;
     @Override
     public void init() {
-        DcMotorEx armMotor = hardwareMap.get(DcMotorEx.class, "arm");
-        Servo claw = hardwareMap.get(Servo.class, "claw");
+        // Initialize instance variables directly
+        armMotor = hardwareMap.get(DcMotorEx.class, "arm");
+        claw = hardwareMap.get(Servo.class, "claw");
 
         // Reset the motor encoder so that it reads zero ticks
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -37,14 +38,16 @@ boolean flag = false;
         // Sets the starting position of the arm to the down position
         armMotor.setTargetPosition(armDownPosition);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        TemplateJanx janx = new TemplateJanx(hardwareMap);
-        janx.wheelInit("frontRight","backRight","backLeft","frontLeft");
-        frontLeft =  janx.fl;
-        frontRight = janx.fr;
-        backRight =  janx.br;
-        backLeft =   janx.bl;
 
+        // Initialize drivetrain motors using TemplateJanx
+        TemplateJanx janx = new TemplateJanx(hardwareMap);
+        janx.wheelInit("frontRight", "backRight", "backLeft", "frontLeft");
+        frontLeft = janx.fl;
+        frontRight = janx.fr;
+        backRight = janx.br;
+        backLeft = janx.bl;
     }
+
     @Override
     public void loop() {
         mecanum(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
@@ -73,20 +76,26 @@ boolean flag = false;
             claw.setPosition(-1);
         }
     }
-    private int getPosition(){
-        if (gamepad2.a) {
+
+
+    private boolean lastAState = false;
+    private int getPosition() {
+        if (gamepad2.a && !lastAState) { // Detect button press
             flag = !flag;
         }
-        if(flag)
-        {
+        lastAState = gamepad2.a; // Update last state
+
+        if (flag) {
             pos = armDownPosition;
-        }
-        else
-        {
+        } else {
             pos = armUpPosition;
         }
         return pos;
     }
+
+
+
+
     private void mecanum(double LSY, double LSX, double RSX) {
         int Speed = 1600;
         double lx = Math.pow(LSX,3);
