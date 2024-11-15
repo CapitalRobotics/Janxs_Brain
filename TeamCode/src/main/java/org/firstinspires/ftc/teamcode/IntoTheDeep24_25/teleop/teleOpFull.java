@@ -21,7 +21,7 @@ public class teleOpFull extends OpMode {
     private Servo claw;
     // Position of the arm when it's down
     int armUpPosition = 30;
-
+boolean flag = false;
     // Position of the arm when it's lifted
     int armDownPosition = 150;
     // Find a motor in the hardware map named "Arm Motor"
@@ -48,19 +48,13 @@ public class teleOpFull extends OpMode {
     @Override
     public void loop() {
         mecanum(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
-        if (gamepad2.left_trigger!=0) {
-            claw.setPosition(1);
-        } else if (gamepad2.right_trigger!=0) {
-            claw.setPosition(-1);
-        }
+        claw();
         // If the A button is pressed, raise the arm
         armMotor.setTargetPosition(getPosition());
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         pidMaybe pid = new pidMaybe(0.004, 0, armMotor);
         double power = pid.calculatePower(getPosition(), armMotor.getCurrentPosition());
         armMotor.setPower(power);
-
-
 
         // Show the position of the armMotor on telemetry
         telemetry.addData("Encoder Position", armMotor.getCurrentPosition());
@@ -71,12 +65,25 @@ public class teleOpFull extends OpMode {
         telemetry.update();
 
     }
+    private void claw()
+    {
+        if (gamepad2.left_trigger!=0) {
+            claw.setPosition(1);
+        } else if (gamepad2.right_trigger!=0) {
+            claw.setPosition(-1);
+        }
+    }
     private int getPosition(){
         int pos = 0;
         if (gamepad2.a) {
+            flag = !flag;
+        }
+        if(flag)
+        {
             pos = armDownPosition;
         }
-        else{
+        else
+        {
             pos = armUpPosition;
         }
         return pos;
