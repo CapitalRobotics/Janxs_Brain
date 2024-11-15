@@ -13,20 +13,8 @@ public class BlueRight extends LinearOpMode {
     private DcMotorEx armMotor = null;
     private Servo claw = null;
 
-    // Arm positions
-    private final int armUpPosition = 30;
-    private final int armDownPosition = 180;
-
     // Constants for movement
     private final int TURN_DURATION = 500;
-    private final int MOVE_28_INCHES = 1000;
-    private final int MOVE_6_INCHES = 300;
-    private final int MOVE_95_INCHES = 3000;
-    private final int MOVE_100_INCHES = 3000;
-    private final int MOVE_105_INCHES = 3300;
-    private final int MOVE_85_INCHES = 2700;
-    private final int MOVE_36_INCHES = 1200;
-    private final int MOVE_5_INCHES = 200;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -53,6 +41,15 @@ public class BlueRight extends LinearOpMode {
     }
 
     private void executePath() throws InterruptedException {
+        int MOVE_6_INCHES = 300;
+        int MOVE_28_INCHES = 1000;
+        int MOVE_95_INCHES = 3000;
+        int MOVE_100_INCHES = 3000;
+        int MOVE_105_INCHES = 3300;
+        int MOVE_85_INCHES = 2700;
+        int MOVE_36_INCHES = 1200;
+        int MOVE_5_INCHES = 200;
+
         turnRight();
         moveForward(MOVE_28_INCHES);
         turnLeft();
@@ -124,6 +121,7 @@ public class BlueRight extends LinearOpMode {
         telemetry.update();
 
         // Move arm down
+        int armDownPosition = 180;
         moveArm(armDownPosition);
 
         // Close claw
@@ -137,6 +135,8 @@ public class BlueRight extends LinearOpMode {
         telemetry.update();
 
         // Move arm up
+        // Arm positions
+        int armUpPosition = 30;
         moveArm(armUpPosition);
 
         // Open claw
