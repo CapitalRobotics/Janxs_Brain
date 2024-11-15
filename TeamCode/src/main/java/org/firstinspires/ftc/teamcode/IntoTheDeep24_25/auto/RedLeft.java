@@ -17,6 +17,17 @@ public class RedLeft extends LinearOpMode {
     private final int armUpPosition = 30;
     private final int armDownPosition = 180;
 
+    // Constants for movement
+    private final int TURN_DURATION = 500;
+    private final int MOVE_28_INCHES = 1000;
+    private final int MOVE_6_INCHES = 300;
+    private final int MOVE_95_INCHES = 3000;
+    private final int MOVE_100_INCHES = 3000;
+    private final int MOVE_105_INCHES = 3300;
+    private final int MOVE_85_INCHES = 2700;
+    private final int MOVE_36_INCHES = 1200;
+    private final int MOVE_5_INCHES = 200;
+
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize drive motors
@@ -38,92 +49,48 @@ public class RedLeft extends LinearOpMode {
         waitForStart();
 
         // RED LEFT Path
-        // Turn left
-        mecanum(0, 0, -1); // Turn left
-        sleep(500); // Adjust for 90 degrees
+        executePath();
+    }
 
-        // Move forward 28 inches
-        mecanum(1, 0, 0);
-        sleep(1000); // Adjust time for 28 inches
-
-        // Turn right
-        mecanum(0, 0, 1); // Turn right
-        sleep(500); // Adjust for 90 degrees
-
-        // Move forward 6 inches
-        mecanum(1, 0, 0);
-        sleep(300); // Adjust time for 6 inches
-
-        // Grab Sample
+    private void executePath() throws InterruptedException {
+        turnLeft();
+        moveForward(MOVE_28_INCHES);
+        turnRight();
+        moveForward(MOVE_6_INCHES);
         grabSample();
-
-        // Turn right
-        mecanum(0, 0, 1); // Turn right
-        sleep(500); // Adjust for 90 degrees
-
-        // Move forward 95 inches
-        mecanum(1, 0, 0);
-        sleep(3000); // Adjust time for 95 inches
-
-        // Turn right
-        mecanum(0, 0, 1); // Turn right
-        sleep(500); // Adjust for 90 degrees
-
-        // Place Sample
+        turnRight();
+        moveForward(MOVE_95_INCHES);
+        turnRight();
         placeSample();
-
-        // Turn right
-        mecanum(0, 0, 1); // Turn right
-        sleep(500); // Adjust for 90 degrees
-
-        // Move forward 100 inches
-        mecanum(1, 0, 0);
-        sleep(3000); // Adjust time for 100 inches
-
-        // Turn right
-        mecanum(0, 0, 1); // Turn right
-        sleep(500); // Adjust for 90 degrees
-
-        // Grab Sample
+        turnRight();
+        moveForward(MOVE_100_INCHES);
+        turnRight();
         grabSample();
-
-        // Turn right
-        mecanum(0, 0, 1); // Turn right
-        sleep(500); // Adjust for 90 degrees
-
-        // Move forward 105 inches
-        mecanum(1, 0, 0);
-        sleep(3300); // Adjust time for 105 inches
-
-        // Place Sample
+        turnRight();
+        moveForward(MOVE_105_INCHES);
         placeSample();
-
-        // Turn right
-        mecanum(0, 0, 1); // Turn right
-        sleep(500); // Adjust for 90 degrees
-
-        // Move forward 85 inches
-        mecanum(1, 0, 0);
-        sleep(2700); // Adjust time for 85 inches
-
-        // Turn right
-        mecanum(0, 0, 1); // Turn right
-        sleep(500); // Adjust for 90 degrees
-
-        // Move forward 3 feet (36 inches)
-        mecanum(1, 0, 0);
-        sleep(1200); // Adjust time for 36 inches
-
-        // Turn right
-        mecanum(0, 0, 1); // Turn right
-        sleep(500); // Adjust for 90 degrees
-
-        // Move forward 5 inches
-        mecanum(1, 0, 0);
-        sleep(200); // Adjust time for 5 inches
-
-        // Ascent (dummy implementation)
+        turnRight();
+        moveForward(MOVE_85_INCHES);
+        turnRight();
+        moveForward(MOVE_36_INCHES);
+        turnRight();
+        moveForward(MOVE_5_INCHES);
         ascent();
+    }
+
+    private void turnLeft() throws InterruptedException {
+        mecanum(0, 0, -1);
+        sleep(TURN_DURATION);
+    }
+
+    private void turnRight() throws InterruptedException {
+        mecanum(0, 0, 1);
+        sleep(TURN_DURATION);
+    }
+
+    private void moveForward(int duration) throws InterruptedException {
+        mecanum(1, 0, 0);
+        sleep(duration);
     }
 
     private void mecanum(double LSY, double LSX, double RSX) {
@@ -173,7 +140,7 @@ public class RedLeft extends LinearOpMode {
         moveArm(armUpPosition);
 
         // Open claw
-        claw.setPosition(-1);
+        claw.setPosition(0);
         sleep(1000); // Allow time for claw to release
     }
 
