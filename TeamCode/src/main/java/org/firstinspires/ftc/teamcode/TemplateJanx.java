@@ -25,7 +25,6 @@ public class TemplateJanx {
 
     HardwareMap hwMap = null;
 
-
     //clockwise from front right
     public TemplateJanx(HardwareMap h) {
         hwMap = h;
@@ -58,6 +57,8 @@ public class TemplateJanx {
         fl.setPower(0);
         br.setPower(0);
         fr.setPower(0);
+
+
     }
 
     /*    public void clawInit(String leftClaw, String rightClaw, String nodder) {
