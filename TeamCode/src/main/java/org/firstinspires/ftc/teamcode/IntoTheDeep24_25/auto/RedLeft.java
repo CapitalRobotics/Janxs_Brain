@@ -14,8 +14,8 @@ public class RedLeft extends LinearOpMode {
     private Servo claw;
 
     // Arm positions
-    private final int armUpPosition = 30;
-    private final int armDownPosition = 180;
+    private final int armUpPosition = 180;
+    private final int armDownPosition = 30;
 
     // Movement durations
     private final int TURN_DURATION = 500; // Duration for 90-degree turns
@@ -60,8 +60,8 @@ public class RedLeft extends LinearOpMode {
         resetAndRunUsingEncoders(backLeft);
 
         // Arm and claw initialization
-        armMotor = hardwareMap.get(DcMotorEx.class, "arm_motor");
-        claw = hardwareMap.get(Servo.class, "claw_servo");
+        armMotor = hardwareMap.get(DcMotorEx.class, "arm");
+        claw = hardwareMap.get(Servo.class, "claw");
 
         // Reset the arm motor encoder
         armMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
