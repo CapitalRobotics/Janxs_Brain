@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.utils;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.other;
 
 public class PIDTemplate {
     private double kP;  // Proportional gain
