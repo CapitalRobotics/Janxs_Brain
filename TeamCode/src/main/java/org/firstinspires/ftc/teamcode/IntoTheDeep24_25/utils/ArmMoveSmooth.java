@@ -1,10 +1,12 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.utils;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+@Disabled
 @TeleOp
-public class ArmMove extends LinearOpMode {
+public class ArmMoveSmooth extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Position of the arm when it's down

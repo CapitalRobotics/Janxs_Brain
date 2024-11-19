@@ -1,13 +1,14 @@
 package org. firstinspires. ftc. teamcode. PowerPlay23_24;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@Autonomous
+@Disabled
 public class AutoTemplate extends LinearOpMode {
     private Servo lc;
     private Servo rc;
@@ -24,7 +25,7 @@ public class AutoTemplate extends LinearOpMode {
 
     private long mulitplier = 500;
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode(){
         waitForStart();
         if (opModeIsActive()) {
             // Put run blocks here.
@@ -47,10 +48,10 @@ public class AutoTemplate extends LinearOpMode {
 
     }
     private void initialise(){
-        frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
-        backRight  = hardwareMap.get(DcMotorEx.class, "backRight");
-        frontLeft  = hardwareMap.get(DcMotorEx.class, "frontLeft");
-        backLeft   = hardwareMap.get(DcMotorEx.class, "backLeft");
+//        frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
+//        backRight  = hardwareMap.get(DcMotorEx.class, "backRight");
+//        frontLeft  = hardwareMap.get(DcMotorEx.class, "frontLeft");
+//        backLeft   = hardwareMap.get(DcMotorEx.class, "backLeft");
 
         frontRight.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.FORWARD);
@@ -61,11 +62,11 @@ public class AutoTemplate extends LinearOpMode {
         frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 // janx.armInit("clawLeft","clawRight","nodder","armExtension","arm rotations");
-        ext =       hardwareMap.get(DcMotorEx.class,"armExtension");
-        turn =      hardwareMap.get(DcMotorEx.class,"arm rotations");
-        nodder =    hardwareMap.get(Servo.class,"nodder");
-        lc  =       hardwareMap.get(Servo.class, "clawLeft");
-        rc  =       hardwareMap.get(Servo.class,"clawRight");
+//        ext =       hardwareMap.get(DcMotorEx.class,"armExtension");
+//        turn =      hardwareMap.get(DcMotorEx.class,"arm rotations");
+//        nodder =    hardwareMap.get(Servo.class,"nodder");
+//        lc  =       hardwareMap.get(Servo.class, "clawLeft");
+//        rc  =       hardwareMap.get(Servo.class,"clawRight");
 
         ext.setDirection(DcMotor.Direction.FORWARD);
         ext.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

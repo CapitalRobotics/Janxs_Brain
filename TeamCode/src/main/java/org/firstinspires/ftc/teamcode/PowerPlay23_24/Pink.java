@@ -2,12 +2,14 @@ package org. firstinspires. ftc. teamcode. PowerPlay23_24;
 import static com.qualcomm.robotcore.util.Range.clip;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+@Disabled
 @Autonomous(name = "BlueRight", group = "PushBot")
 public class Pink extends LinearOpMode{
     /* Declare OpMode members. */

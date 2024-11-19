@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.utils;
 
 public class Butter {
     private double maxPower;
