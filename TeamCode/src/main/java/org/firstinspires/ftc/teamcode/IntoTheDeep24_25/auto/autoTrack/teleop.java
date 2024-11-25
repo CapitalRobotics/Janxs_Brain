@@ -76,7 +76,7 @@ public class teleop extends OpMode {
         int speed = 1600; // Motor speed
         double lx = Math.pow(LSX, 3);
         double ly = -Math.pow(LSY, 3);
-        double rx = -Math.pow(RSX, 3);
+        double rx = Math.pow(RSX, 3);
 
         if (LSX != 0 || LSY != 0 || RSX != 0) {
             frontRight.setVelocity(speed * (clip((ly) - lx, -1, 1) - rx));
