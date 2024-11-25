@@ -6,10 +6,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.FileWriter;
@@ -20,6 +22,7 @@ public class teleop extends OpMode {
     private DcMotorEx frontRight, backRight, frontLeft, backLeft, armMotor;
     private Servo claw;
     private JSONArray movementLog;
+    private ElapsedTime logTimer;
 
     // Arm positions
     private final int armUpPosition = 20;
@@ -44,6 +47,9 @@ public class teleop extends OpMode {
         armMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         movementLog = new JSONArray();
+        logTimer = new ElapsedTime();
+        logTimer.reset();
+
         telemetry.addData("Status", "Initialized");
     }
 
@@ -54,7 +60,11 @@ public class teleop extends OpMode {
         controlClaw();
         controlArm();
 
-        recordMovement();
+        // Record movement at a high frequency (every 20 ms)
+        if (logTimer.milliseconds() > 20) {
+            recordMovement();
+            logTimer.reset();
+        }
 
         telemetry.addData("Arm Position", armMotor.getCurrentPosition());
         telemetry.addData("Claw Position", claw.getPosition());
@@ -63,13 +73,7 @@ public class teleop extends OpMode {
 
     @Override
     public void stop() {
-        try (FileWriter file = new FileWriter("/sdcard/FIRST/movementLog.json")) {
-            file.write(movementLog.toString());
-            telemetry.addData("Status", "Movements saved to /sdcard/FIRST/movementLog.json");
-        } catch (IOException e) {
-            telemetry.addData("Error", "Failed to save movements: " + e.getMessage());
-        }
-        telemetry.update();
+        saveMovementLog();
     }
 
     private void mecanumDrive(double LSY, double LSX, double RSX) {
@@ -114,6 +118,7 @@ public class teleop extends OpMode {
     private void recordMovement() {
         try {
             JSONObject movement = new JSONObject();
+            movement.put("timestamp", System.nanoTime()); // High-resolution timestamp
             movement.put("frontLeftVelocity", frontLeft.getVelocity());
             movement.put("frontRightVelocity", frontRight.getVelocity());
             movement.put("backLeftVelocity", backLeft.getVelocity());
@@ -122,7 +127,17 @@ public class teleop extends OpMode {
             movement.put("clawPosition", claw.getPosition());
             movementLog.put(movement);
         } catch (Exception e) {
-            telemetry.addData("Error", "Failed to record movement");
+            telemetry.addData("Error", "Failed to record movement: " + e.getMessage());
         }
+    }
+
+    private void saveMovementLog() {
+        try (FileWriter file = new FileWriter("/sdcard/FIRST/movementLog.json")) {
+            file.write(movementLog.toString(4)); // Pretty print JSON for easier analysis
+            telemetry.addData("Status", "Movements saved to /sdcard/FIRST/movementLog.json");
+        } catch (IOException | JSONException e) {
+            telemetry.addData("Error", "Failed to save movements: " + e.getMessage());
+        }
+        telemetry.update();
     }
 }
