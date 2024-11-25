@@ -48,8 +48,6 @@ boolean flag = false;
         backLeft = janx.bl;
     }
 
-
-
     @Override
     public void loop() {
         mecanum(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
@@ -62,11 +60,14 @@ boolean flag = false;
         armMotor.setPower(power);
 
         // Show the position of the armMotor on telemetry
-        telemetry.addData("Encoder Position", armMotor.getCurrentPosition());
-        telemetry.addData("time", pid.getTime());
-        telemetry.addData("Power", power);
+//        telemetry.addData("Encoder Position", armMotor.getCurrentPosition());
+//        telemetry.addData("time", pid.getTime());
+        telemetry.addData("Power", frontLeft.getVelocity());
+        telemetry.addData("LSX", gamepad1.left_stick_x);
+        telemetry.addData("LSY", gamepad1.left_stick_y);
+        telemetry.addData("RSX", gamepad1.right_stick_x);
         // Show the target position of the armMotor on telemetry
-        telemetry.addData("Desired Position",armMotor.getTargetPosition());
+//        telemetry.addData("Desired Position",armMotor.getTargetPosition());
         telemetry.update();
     }
 
@@ -103,7 +104,7 @@ boolean flag = false;
         int Speed = 1600;
         double lx = Math.pow(LSX,3);
         double ly = -(Math.pow(LSY,3));
-        double rx = Math.pow(RSX,3);
+        double rx = -Math.pow(RSX,3);
         //is RSX backwards? I may need to fix the canva
         if(LSX != 0 || LSY != 0 || RSX != 0){
             frontRight.setVelocity(Speed*(clip((ly)-lx,-1,1)-rx));
