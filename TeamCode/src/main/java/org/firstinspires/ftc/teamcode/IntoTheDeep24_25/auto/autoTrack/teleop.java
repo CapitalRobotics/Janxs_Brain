@@ -14,7 +14,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileWriter;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
+
+import java.io.OutputStream;
 import java.io.IOException;
 
 @TeleOp(name = "AUTO TRACK --- TeleOp")
@@ -24,11 +28,13 @@ public class teleop extends OpMode {
     private JSONArray movementLog;
     private ElapsedTime logTimer;
 
-    // Arm positions
     private final int armUpPosition = 20;
     private final int armDownPosition = 150;
     private boolean armFlag = false;
     private boolean lastAState = false;
+
+    // USB content URI
+    private Uri usbUri;
 
     @Override
     public void init() {
@@ -50,6 +56,9 @@ public class teleop extends OpMode {
         logTimer = new ElapsedTime();
         logTimer.reset();
 
+        //idk if this is right
+        usbUri = Uri.parse("content://com.android.externalstorage.documents/document/B1BE-1722");
+
         telemetry.addData("Status", "Initialized");
     }
 
@@ -60,7 +69,6 @@ public class teleop extends OpMode {
         controlClaw();
         controlArm();
 
-        // Record movement at a high frequency (every 20 ms)
         if (logTimer.milliseconds() > 20) {
             recordMovement();
             logTimer.reset();
@@ -77,7 +85,7 @@ public class teleop extends OpMode {
     }
 
     private void mecanumDrive(double LSY, double LSX, double RSX) {
-        int speed = 1600; // Motor speed
+        int speed = 1600;
         double lx = Math.pow(LSX, 3);
         double ly = -Math.pow(LSY, 3);
         double rx = Math.pow(RSX, 3);
@@ -132,9 +140,24 @@ public class teleop extends OpMode {
     }
 
     private void saveMovementLog() {
-        try (FileWriter file = new FileWriter("/sdcard/FIRST/movementLog.json")) {
-            file.write(movementLog.toString(4)); // Pretty print JSON for easier analysis
-            telemetry.addData("Status", "Movements saved to /sdcard/FIRST/movementLog.json");
+        if (usbUri == null) {
+            telemetry.addData("Error", "USB URI is not set.");
+            telemetry.update();
+            return;
+        }
+
+        try {
+            Context context = hardwareMap.appContext;
+            ContentResolver resolver = context.getContentResolver();
+            OutputStream outputStream = resolver.openOutputStream(usbUri);
+
+            if (outputStream != null) {
+                outputStream.write(movementLog.toString(4).getBytes());
+                outputStream.close();
+                telemetry.addData("Status", "Movements saved to USB drive.");
+            } else {
+                telemetry.addData("Error", "Failed to open OutputStream.");
+            }
         } catch (IOException | JSONException e) {
             telemetry.addData("Error", "Failed to save movements: " + e.getMessage());
         }
