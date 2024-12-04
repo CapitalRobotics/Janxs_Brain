@@ -6,13 +6,19 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileWriter;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
+
+import java.io.OutputStream;
 import java.io.IOException;
 
 @TeleOp(name = "AUTO TRACK --- TeleOp")
@@ -20,12 +26,15 @@ public class teleop extends OpMode {
     private DcMotorEx frontRight, backRight, frontLeft, backLeft, armMotor;
     private Servo claw;
     private JSONArray movementLog;
+    private ElapsedTime logTimer;
 
-    // Arm positions
     private final int armUpPosition = 20;
     private final int armDownPosition = 150;
     private boolean armFlag = false;
     private boolean lastAState = false;
+
+    // USB content URI
+    private Uri usbUri;
 
     @Override
     public void init() {
@@ -44,6 +53,12 @@ public class teleop extends OpMode {
         armMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         movementLog = new JSONArray();
+        logTimer = new ElapsedTime();
+        logTimer.reset();
+
+        //idk if this is right
+        usbUri = Uri.parse("content://com.android.externalstorage.documents/document/B1BE-1722");
+
         telemetry.addData("Status", "Initialized");
     }
 
@@ -54,7 +69,10 @@ public class teleop extends OpMode {
         controlClaw();
         controlArm();
 
-        recordMovement();
+        if (logTimer.milliseconds() > 20) {
+            recordMovement();
+            logTimer.reset();
+        }
 
         telemetry.addData("Arm Position", armMotor.getCurrentPosition());
         telemetry.addData("Claw Position", claw.getPosition());
@@ -63,17 +81,11 @@ public class teleop extends OpMode {
 
     @Override
     public void stop() {
-        try (FileWriter file = new FileWriter("/sdcard/FIRST/movementLog.json")) {
-            file.write(movementLog.toString());
-            telemetry.addData("Status", "Movements saved to /sdcard/FIRST/movementLog.json");
-        } catch (IOException e) {
-            telemetry.addData("Error", "Failed to save movements: " + e.getMessage());
-        }
-        telemetry.update();
+        saveMovementLog();
     }
 
     private void mecanumDrive(double LSY, double LSX, double RSX) {
-        int speed = 1600; // Motor speed
+        int speed = 1600;
         double lx = Math.pow(LSX, 3);
         double ly = -Math.pow(LSY, 3);
         double rx = -Math.pow(RSX, 3);
@@ -114,6 +126,7 @@ public class teleop extends OpMode {
     private void recordMovement() {
         try {
             JSONObject movement = new JSONObject();
+            movement.put("timestamp", System.nanoTime()); // High-resolution timestamp
             movement.put("frontLeftVelocity", frontLeft.getVelocity());
             movement.put("frontRightVelocity", frontRight.getVelocity());
             movement.put("backLeftVelocity", backLeft.getVelocity());
@@ -122,7 +135,32 @@ public class teleop extends OpMode {
             movement.put("clawPosition", claw.getPosition());
             movementLog.put(movement);
         } catch (Exception e) {
-            telemetry.addData("Error", "Failed to record movement");
+            telemetry.addData("Error", "Failed to record movement: " + e.getMessage());
         }
+    }
+
+    private void saveMovementLog() {
+        if (usbUri == null) {
+            telemetry.addData("Error", "USB URI is not set.");
+            telemetry.update();
+            return;
+        }
+
+        try {
+            Context context = hardwareMap.appContext;
+            ContentResolver resolver = context.getContentResolver();
+            OutputStream outputStream = resolver.openOutputStream(usbUri);
+
+            if (outputStream != null) {
+                outputStream.write(movementLog.toString(4).getBytes());
+                outputStream.close();
+                telemetry.addData("Status", "Movements saved to USB drive.");
+            } else {
+                telemetry.addData("Error", "Failed to open OutputStream.");
+            }
+        } catch (IOException | JSONException e) {
+            telemetry.addData("Error", "Failed to save movements: " + e.getMessage());
+        }
+        telemetry.update();
     }
 }
