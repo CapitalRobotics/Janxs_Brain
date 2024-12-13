@@ -1,0 +1,43 @@
+name: Track Lines of Code Per User
+
+on:
+  schedule:
+    - cron: '0 18 * * 5' 
+
+jobs:
+  track-loc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+
+      - name: Install cloc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cloc
+
+      - name: Gather Lines of Code Per User
+        id: gather-loc
+        run: |
+          echo "Author,Added Lines,Deleted Lines" > loc_per_user.csv
+          git log --format='%aN' | sort | uniq | while read author; do
+            added=$(git log --author="$author" --pretty=tformat: --numstat | awk '{add+=$1} END {print add}')
+            deleted=$(git log --author="$author" --pretty=tformat: --numstat | awk '{del+=$2} END {print del}')
+            echo "$author,$added,$deleted" >> loc_per_user.csv
+          done
+        env:
+          GIT_AUTHOR_DATE: "HEAD"
+
+      - name: Display Results
+        run: |
+          cat loc_per_user.csv
+
+      - name: Upload Lines of Code Data
+        uses: actions/upload-artifact@v3
+        with:
+          name: lines-of-code-per-user
+          path: loc_per_user.csv
