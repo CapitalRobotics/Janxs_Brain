@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
+import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
@@ -23,18 +23,19 @@ public class AprilTags extends LinearOpMode {
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
-
+\
     private AprilTagProcessor aprilTag;
     private AprilTagDetection desiredTag = null;
     private static final boolean USE_WEBCAM = true;
     private static final int DESIRED_TAG_ID = -1; // Track any detected AprilTag
     private static final int TAG_TIMEOUT_THRESHOLD = 100; // Adjust this threshold as needed
     private int tagTimeoutCounter = 0;
+    private ElapsedTime t;
 
     @Override
     public void runOpMode() {
         robotInit();
-
+        t = new ElapsedTime();
         // Initialize the AprilTag detection system
         initAprilTag();
 
@@ -77,6 +78,19 @@ public class AprilTags extends LinearOpMode {
                 // Increment timeout counter if no tag is detected
                 tagTimeoutCounter++;
                 telemetry.addData("Status", "No AprilTag detected. Searching...");
+
+                //every 10 whatevers it'll look around a bit
+                if(tagTimeoutCounter%10==0){
+                    if(t.milliseconds() < 500){
+                        frontRight.setPower(0.1);
+                        backRight.setPower(0.1);
+                    }
+                    if(t.milliseconds() < 500){
+                        frontLeft.setPower(0.1);
+                        backLeft.setPower(0.1);
+                    }
+                }
+
 
                 // Stop the robot if tag timeout threshold is reached
                 if (tagTimeoutCounter > TAG_TIMEOUT_THRESHOLD) {
