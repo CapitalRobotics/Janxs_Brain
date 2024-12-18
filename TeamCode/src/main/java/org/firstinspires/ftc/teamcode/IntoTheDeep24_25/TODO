@@ -1,6 +1,4 @@
 THINGS TO CHANGE
-- add elbow or change to telescoping
-- have actual control of the arm
-- tensorflow?
-
-this is me checking that it's working
+- we need to train TensorFlow guy so it detects colored blocks
+- start planning a pathfinding algorithm so it can drop blocks off
+- we need a path
