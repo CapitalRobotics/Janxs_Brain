@@ -23,6 +23,7 @@ public class arm3 extends OpMode{
      */
     @Override
     public void init(){
+        //the name of this arm may not be extender
         arm = hardwareMap.get(DcMotorEx.class, "extender");
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
