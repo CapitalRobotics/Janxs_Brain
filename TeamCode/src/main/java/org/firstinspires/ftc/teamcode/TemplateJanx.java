@@ -80,19 +80,19 @@ public class TemplateJanx {
 
     }
 
-    //this is the initialization for an elbow arm with a double servo claw
-    public void elbow(String armMotor, String elbowMotor, String lcMotor, String rcMotor){
+    //this is the initialization for an arm with a double servo claw
+    public void doubleServo(String armMotor, String lcMotor, String rcMotor){
         arm = hwMap.get(DcMotorEx.class,armMotor);
-        elbow = hwMap.get(DcMotorEx.class, elbowMotor);
         lc = hwMap.get(Servo.class,lcMotor);
         rc = hwMap.get(Servo.class,rcMotor);
 
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setDirection(DcMotor.Direction.FORWARD);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        elbow.setDirection(DcMotor.Direction.FORWARD);
-        elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    public void telscoping(){
+
     }
 
 }
