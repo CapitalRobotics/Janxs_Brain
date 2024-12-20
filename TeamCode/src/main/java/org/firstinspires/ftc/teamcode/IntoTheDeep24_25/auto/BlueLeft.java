@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
-import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop.pidMaybe;
+import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 
 @Autonomous(name = "BLUE LEFT", group = "Autonomous")
 public class BlueLeft extends LinearOpMode {
