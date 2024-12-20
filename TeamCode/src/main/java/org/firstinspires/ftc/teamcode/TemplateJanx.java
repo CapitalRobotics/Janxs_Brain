@@ -1,29 +1,23 @@
 package org.firstinspires.ftc.teamcode;
-
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-//ftclib library
 public class TemplateJanx {
+    HardwareMap hwMap = null;
+
     public DcMotorEx fr = null;
     public DcMotorEx br = null;
     public DcMotorEx fl = null;
     public DcMotorEx bl = null;
 
-    public Servo lc = null;
-    public Servo rc = null;
-    public DcMotorEx nod = null;
+    public Servo claw;
+    public Servo lc;
+    public Servo rc;
 
-    public DcMotorEx ext = null;
-    public DcMotorEx turn = null;
-
-    public DcMotorEx sl = null;
-    public DcMotorEx sr = null;
-
-    HardwareMap hwMap = null;
+    public DcMotorEx arm;
+    public DcMotorEx elbow;
 
     //clockwise from front right
     public TemplateJanx(HardwareMap h) {
@@ -61,7 +55,49 @@ public class TemplateJanx {
 
     }
 
-    /*    public void clawInit(String leftClaw, String rightClaw, String nodder) {
+
+    public void basicClaw(String armMotor, String clawMotor){
+        arm = hwMap.get(DcMotorEx.class,armMotor);
+        claw = hwMap.get(Servo.class,clawMotor);
+
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm. setDirection(DcMotor.Direction.FORWARD);
+    }
+
+    //this is the initialization for an elbow arm with one servo claw
+    public void elbow(String armMotor, String elbowMotor, String clawMotor){
+        arm = hwMap.get(DcMotorEx.class,armMotor);
+        elbow = hwMap.get(DcMotorEx.class, elbowMotor);
+        claw = hwMap.get(Servo.class,clawMotor);
+
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm.setDirection(DcMotor.Direction.FORWARD);
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elbow.setDirection(DcMotor.Direction.FORWARD);
+
+    }
+
+    //this is the initialization for an elbow arm with a double servo claw
+    public void elbow(String armMotor, String elbowMotor, String lcMotor, String rcMotor){
+        arm = hwMap.get(DcMotorEx.class,armMotor);
+        elbow = hwMap.get(DcMotorEx.class, elbowMotor);
+        lc = hwMap.get(Servo.class,lcMotor);
+        rc = hwMap.get(Servo.class,rcMotor);
+
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm.setDirection(DcMotor.Direction.FORWARD);
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elbow.setDirection(DcMotor.Direction.FORWARD);
+        elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+}
+
+ /*    public void clawInit(String leftClaw, String rightClaw, String nodder) {
             nod = hwMap.get(DcMotorEx.class, nodder);
             nod.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             nod.setDirection(DcMotor.Direction.FORWARD);
@@ -88,5 +124,3 @@ public class TemplateJanx {
             sr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             sr.setPower(0);
     }*/
-
-}
