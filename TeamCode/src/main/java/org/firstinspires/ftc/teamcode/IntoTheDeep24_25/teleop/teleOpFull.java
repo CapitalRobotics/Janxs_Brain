@@ -17,7 +17,8 @@ public class teleOpFull extends OpMode {
     private DcMotorEx frontLeft;
     private DcMotorEx backLeft;
     private DcMotorEx armMotor;
-    private Servo claw;
+
+    private DcMotorEx extender;
     // Position of the arm when it's down
     int armUpPosition = 20;
 boolean flag = false;
@@ -29,8 +30,8 @@ boolean flag = false;
     @Override
     public void init() {
         // Initialize instance variables directly
-        armMotor = hardwareMap.get(DcMotorEx.class, "arm");
-        claw = hardwareMap.get(Servo.class, "claw");
+        armMotor = hardwareMap.get(DcMotorEx.class, "rotator");
+        extender = hardwareMap.get(DcMotorEx.class, "extender");
 
         // Reset the motor encoder so that it reads zero ticks
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -51,13 +52,31 @@ boolean flag = false;
     @Override
     public void loop() {
         mecanum(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
-        claw();
+        //claw();
+        if(gamepad2.left_trigger!= 0){
+            extender.setPower(0.5);
+        }
+
+        else if(gamepad2.right_trigger!= 0){
+            extender.setPower(-0.5);
+        }
+        else{
+            extender.setPower(0);
+        }
         // If the A button is pressed, raise the arm
         armMotor.setTargetPosition(getPosition());
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         pidMaybe pid = new pidMaybe(0.004, 0, armMotor);
         double power = pid.calculatePower(getPosition(), armMotor.getCurrentPosition());
-        armMotor.setPower(power);
+       if(gamepad2.a){
+           armMotor.setPower(-0.75);
+       }
+       else if(gamepad2.b){
+           armMotor.setPower(0.75);
+       }
+       else{
+           armMotor.setPower(0);
+       }
 
         // Show the position of the armMotor on telemetry
 //        telemetry.addData("Encoder Position", armMotor.getCurrentPosition());
@@ -72,14 +91,14 @@ boolean flag = false;
     }
 
 
-    private void claw()
-    {
-        if (gamepad2.left_trigger!=0) {
-            claw.setPosition(1);
-        } else if (gamepad2.right_trigger!=0) {
-            claw.setPosition(-1);
-        }
-    }
+//    private void claw()
+//    {
+//        if (gamepad2.left_trigger!=0) {
+//            claw.setPosition(1);
+//        } else if (gamepad2.right_trigger!=0) {
+//            claw.setPosition(-1);
+//        }
+//    }
 
 
     private boolean lastAState = false;
