@@ -355,7 +355,7 @@ public class FtcRobotControllerActivity extends Activity
       ClassManagerFactory.registerFilters();
       ClassManagerFactory.processAllClasses();
     }
-
+     //FTCdashboard
     cfgFileMgr = new RobotConfigFileManager(this);
 
     // Clean up 'dirty' status after a possible crash
