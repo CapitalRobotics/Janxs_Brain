@@ -16,7 +16,9 @@ import org.firstinspires.ftc.teamcode.TemplateJanx;
  * both on gamepad 2 (start +b!)
  left stick controls arm. right stick controls rotation.
  */
-public class armTest extends LinearOpMode {
+
+@TeleOp(name = "armTest")
+public class  armTest extends LinearOpMode {
     private DcMotorEx arm; //this is port 0.
     private DcMotorEx rotator; //this guy is port 2, moves it up and down
 
