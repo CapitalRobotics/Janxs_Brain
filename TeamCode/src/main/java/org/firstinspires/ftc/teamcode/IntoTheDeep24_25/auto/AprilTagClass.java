@@ -12,8 +12,6 @@ import java.util.List;
 @Autonomous(name = "AprilTag Detection Only", group = "Autonomous")
 public class AprilTagClass extends LinearOpMode {
 
-    private RobotController robot;
-    private AprilTagController aprilTagController;
     private static final boolean USE_WEBCAM = true;
     private static final int DESIRED_TAG_ID = -1;
     private static final int TAG_TIMEOUT_THRESHOLD = 100;
@@ -21,8 +19,8 @@ public class AprilTagClass extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot = new RobotController(hardwareMap);
-        aprilTagController = new AprilTagController(hardwareMap, USE_WEBCAM);
+        RobotController robot = new RobotController(hardwareMap);
+        AprilTagController aprilTagController = new AprilTagController(hardwareMap, USE_WEBCAM);
 
         if (USE_WEBCAM) {
             aprilTagController.setManualExposure(6, 250);
