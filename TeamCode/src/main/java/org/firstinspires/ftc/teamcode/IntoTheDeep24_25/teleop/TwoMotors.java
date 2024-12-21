@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp
-public class TwoMoters extends LinearOpMode {
+public class TwoMotors extends LinearOpMode {
     // Position of the arm when it's down
     private static final int ARM_UP_POSITION = 10;
     private static final int ARM_DOWN_POSITION = 150;
