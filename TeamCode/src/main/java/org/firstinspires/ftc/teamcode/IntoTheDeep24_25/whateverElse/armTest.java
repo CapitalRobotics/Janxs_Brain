@@ -1,16 +1,12 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.whateverElse;
 
 import static com.qualcomm.robotcore.util.Range.clip;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.TemplateJanx2024;
-import org.firstinspires.ftc.teamcode.TemplateJanx;
 
 /**
  * both on gamepad 2 (start +b!)

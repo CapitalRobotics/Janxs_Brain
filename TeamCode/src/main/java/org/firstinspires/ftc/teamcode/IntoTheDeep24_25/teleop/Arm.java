@@ -13,15 +13,12 @@ public class Arm extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize the arm motor
-        DcMotorEx armMotor = hardwareMap.get(DcMotorEx.class, "arm");
+        DcMotorEx armMotor = hardwareMap.get(DcMotorEx.class, "arm1");
+
 
         // Reset the motor encoder so that it reads zero ticks
         armMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-
-        // Set the motor mode to RUN_TO_POSITION
-        armMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-
-        // Wait for the game to start
+        armMotor.setTargetPosition(100);
         waitForStart();
 
         while (opModeIsActive()) {
@@ -31,7 +28,11 @@ public class Arm extends LinearOpMode {
             } else if (gamepad2.b) {
                 armMotor.setTargetPosition(ARM_DOWN_POSITION); // Move arm down
             }
+            else{
+                armMotor.setTargetPosition(armMotor.getCurrentPosition());
+            }
 
+            armMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
             // Apply a constant power to move the motor
             armMotor.setPower(1.0);
 
