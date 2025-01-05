@@ -12,9 +12,9 @@ public class PID2 {
     private int kd = 0;
     private int ki = 0;
 
-    private int p;
+    private double p;
     private double i;
-    private int d;
+    private double d;
 
     private int target;
     private int error;
@@ -31,19 +31,19 @@ public class PID2 {
     }
 
     public double returnPower(int current, ElapsedTime time){
+            lastError +=error;
             error = target - current;
-            p = kp*error;
-            i += ki * error * time.seconds();
-            d = kd*(error - lastError);
-            double power = p+i+d;
-            if(power>0.75){
-                power = 0.75;
+            p = error;
+            i += lastError * time.seconds();
+            d = (error - lastError)/time.seconds();
+            double power = p+d;
+            if(power>0.5){
+                power = 0.5;
             }
-            else if(-power<-0.75){
-                power = -0.75;
+            else if(power<-0.5){
+                power = -0.5;
             }
-
-            return p+i+d;
+            return power;
 
     }
     public void reset(ElapsedTime currentTime){
@@ -53,10 +53,10 @@ public class PID2 {
     public void setTarget(int t){
         target = t;
     }
-    public int returnP(){
+    public double returnP(){
         return p;
     }
-    public int returnD(){
+    public double returnD(){
         return d;
     }
     public double returnI(){

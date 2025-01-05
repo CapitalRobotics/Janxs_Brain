@@ -24,9 +24,9 @@ public class pidMaybe {
             return 0;
         }
         error = target-current;
-        double p = Kp*(error-lastError)*time.seconds();
-        double i = Ki*(error-lastError)*(Math.pow(time.seconds(),2)/2);
-        double d = Kp*error;
+        double d = (error-lastError)*time.seconds();
+        double i = (error-lastError)*(Math.pow(time.seconds(),2)/2);
+        double p = error;
         coeff(p,i,d);
 
         lastError = error;
