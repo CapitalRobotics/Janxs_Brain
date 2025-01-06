@@ -37,7 +37,7 @@ jobs:
           cat loc_per_user.csv
 
       - name: Upload Lines of Code Data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: lines-of-code-per-user
           path: loc_per_user.csv
