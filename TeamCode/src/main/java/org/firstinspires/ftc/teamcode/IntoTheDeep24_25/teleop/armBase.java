@@ -14,6 +14,7 @@ public class armBase extends OpMode{
     private static final int ARM_UP_POSITION = 100;
     private static final int ARM_DOWN_POSITION = 150;
     DcMotorEx arm;
+    DcMotorEx rotator;
     TemplateJanx janx;
     Servo claw;
     Boolean pos = true;
@@ -21,6 +22,7 @@ public class armBase extends OpMode{
     public void init(){
         janx = new TemplateJanx(hardwareMap);
         arm = hardwareMap.get(DcMotorEx.class, "arm1");
+        arm = hardwareMap.get(DcMotorEx.class, "arm2");
         //ctrl hub 0
         claw = hardwareMap.get(Servo.class,"claw");
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
