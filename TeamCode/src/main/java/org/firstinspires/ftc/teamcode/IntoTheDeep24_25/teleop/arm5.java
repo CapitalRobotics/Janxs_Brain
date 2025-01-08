@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 //@config is a FTC dashboard thing for live edit. also the reason why everything is static
 //even if it makes machnik roll in her metaphoric grave
 //@Config
-@TeleOp(name = "Death By A Thousand Cuts")
+@TeleOp(name = "the one with the video")
 public class arm5 extends OpMode{
     private PIDController controller;
     public static double p = 0, i = 0, d = 0;

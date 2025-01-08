@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.PID2;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 import com.qualcomm.robotcore.util.ElapsedTime;
-@TeleOp(name = "yucky blucky fruitcake")
+@TeleOp(name = "the one that doesn't really work")
 public class arm3 extends OpMode{
     ElapsedTime time = new ElapsedTime();
     int target = 89;

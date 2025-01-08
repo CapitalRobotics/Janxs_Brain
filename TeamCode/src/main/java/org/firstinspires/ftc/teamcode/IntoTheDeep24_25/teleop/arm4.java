@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.PID2;
 
-@TeleOp(name = "paint the town blue")
+@TeleOp(name = "the one with ftclib")
 public class arm4 extends OpMode{
     DcMotorEx arm;
     ArmFeedforward ff;

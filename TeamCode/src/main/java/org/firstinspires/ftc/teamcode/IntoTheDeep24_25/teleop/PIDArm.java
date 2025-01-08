@@ -4,21 +4,24 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 
-@TeleOp
-public class PIDArm extends LinearOpMode {
+@TeleOp(name = "the one with a scrimmage")
+public class armMaybe2 extends LinearOpMode {
     // Position of the arm when it's down
-    // These are inverted
-    int armUpPosition = 10;
+    int armUpPosition = 30;
 
     // Position of the arm when it's lifted
     int armDownPosition = 150;
+    // Find a motor in the hardware map named "Arm Motor"
+
 
     @Override
     public void runOpMode() throws InterruptedException {
-        DcMotorEx armMotor =  hardwareMap.get(DcMotorEx.class, "arm");
+        DcMotorEx armMotor = hardwareMap.get(DcMotorEx.class, "arm");
+        Servo claw = hardwareMap.get(Servo.class, "claw");
 
         // Reset the motor encoder so that it reads zero ticks
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -30,12 +33,18 @@ public class PIDArm extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+            if (gamepad2.left_trigger!=0) {
+                claw.setPosition(1);
+            } else if (gamepad2.right_trigger!=0) {
+                claw.setPosition(-1);
+            }
             // If the A button is pressed, raise the arm
             armMotor.setTargetPosition(getPosition());
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            pidMaybe pid = new pidMaybe(0.004, 0, armMotor); // these need fixing
+            pidMaybe pid = new pidMaybe(0.004, 0, armMotor);
             double power = pid.calculatePower(getPosition(), armMotor.getCurrentPosition());
             armMotor.setPower(power);
+
 
             // Get the current position of the armMotor
             double position = armMotor.getCurrentPosition();
@@ -53,14 +62,18 @@ public class PIDArm extends LinearOpMode {
             telemetry.update();
         }
     }
+    public void claw() {
 
-    public int getPosition(){
-        int pos = 0;
-        if (gamepad2.a) {
-            pos = armDownPosition;
-        } else {
-            pos = armUpPosition;
-        }
-        return pos;
     }
-}
+        public int getPosition(){
+            int pos = 0;
+            if (gamepad2.a) {
+                pos = armDownPosition;
+            }
+            else{
+                pos = armUpPosition;
+            }
+            return pos;
+        }
+    }
+
