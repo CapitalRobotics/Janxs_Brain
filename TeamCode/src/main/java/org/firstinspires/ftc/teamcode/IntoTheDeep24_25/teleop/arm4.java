@@ -30,6 +30,7 @@ public class arm4 extends OpMode{
         arm.setPower(ff.calculate(60,20,2));
         telemetry.addData("pos",arm.getCurrentPosition());
         telemetry.addData("target pos", arm.getTargetPosition());
+        telemetry.update();
 
     }
 }
