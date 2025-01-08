@@ -28,7 +28,8 @@ public class arm4 extends OpMode{
     public void loop(){
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(ff.calculate(60,20,2));
-
+        telemetry.addData("pos",arm.getCurrentPosition());
+        telemetry.addData("target pos", arm.getTargetPosition());
 
     }
 }
