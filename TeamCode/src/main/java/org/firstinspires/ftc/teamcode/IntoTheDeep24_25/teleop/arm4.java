@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
 
 import com.arcrobotics.ftclib.controller.wpilibcontroller.ArmFeedforward;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.PID2;
 
+@Disabled
 @TeleOp(name = "the one with ftclib")
 public class arm4 extends OpMode{
     DcMotorEx arm;

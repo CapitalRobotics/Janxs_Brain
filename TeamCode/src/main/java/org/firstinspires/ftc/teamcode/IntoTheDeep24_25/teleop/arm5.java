@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+@Disabled
 //@config is a FTC dashboard thing for live edit. also the reason why everything is static
 //even if it makes machnik roll in her metaphoric grave
 //@Config

@@ -39,10 +39,9 @@ public class arm7 extends LinearOpMode {
             extend(gamepad2.right_stick_y);
             //0.004,0,0.1
             //pidMaybe pid = new pidMaybe(0.004, 0.002,0.08);
-            pidMaybe pid = new pidMaybe(0.004,0,0.1);
+            pidMaybe pid = new pidMaybe(0.004,0.0001,0.2);
             double power = pid.calculatePower(getPosition(), armMotor.getCurrentPosition());
             armMotor.setPower(power);
-
 
             // Get the current position of the armMotor
             double position = armMotor.getCurrentPosition();

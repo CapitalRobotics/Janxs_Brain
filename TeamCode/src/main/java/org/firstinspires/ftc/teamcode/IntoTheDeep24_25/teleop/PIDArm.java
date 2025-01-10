@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
-
+@Disabled
 @TeleOp(name = "the one with a scrimmage")
 public class armMaybe2 extends LinearOpMode {
     // Position of the arm when it's down
