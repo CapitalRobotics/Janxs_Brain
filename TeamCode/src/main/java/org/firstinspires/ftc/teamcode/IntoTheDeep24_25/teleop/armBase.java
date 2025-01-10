@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.TemplateJanx;
 
 @TeleOp(name = "armTest3")
 public class armBase extends OpMode{
-    private static final int ARM_UP_POSITION = 100;
+    private static final int ARM_UP_POSITION = 60;
     private static final int ARM_DOWN_POSITION = 150;
     DcMotorEx arm,extender;
    // DcMotorEx frontLeft,frontRight,backLeft,backRight;
@@ -36,7 +36,7 @@ public class armBase extends OpMode{
         extend(gamepad2.right_stick_y);
         //test();
         janx.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
-       setArm();
+        setArm();
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(0.5);
         telemetry.addData("claw",claw.getPosition());
