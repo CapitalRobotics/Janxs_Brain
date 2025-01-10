@@ -35,7 +35,7 @@ public class arm6 extends LinearOpMode {
             // If the A button is pressed, raise the arm
             armMotor.setTargetPosition(getPosition());
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            pidMaybe pid = new pidMaybe(0.004, 0, armMotor);
+            pidMaybe pid = new pidMaybe(0.004, 0,0.1);
             double power = pid.calculatePower(getPosition(), armMotor.getCurrentPosition());
             armMotor.setPower(power);
 

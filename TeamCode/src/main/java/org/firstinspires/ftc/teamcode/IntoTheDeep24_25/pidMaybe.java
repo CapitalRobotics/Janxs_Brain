@@ -4,18 +4,22 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class pidMaybe {
-    private double Kp;
-    private double Ki;
+    private double Kp,Ki,Kd;
     private double error;
     private double lastError = 0;
     private double tolerance = 4;
 
     private DcMotorEx motor;
     ElapsedTime time = new ElapsedTime();
-    public pidMaybe(double Kp, double Ki, DcMotorEx motor) {
+    public pidMaybe(double Kp,double Ki,DcMotorEx motor){
         this.Kp = Kp;
         this.Ki = Ki;
         this.motor = motor;
+    }
+    public pidMaybe(double Kp, double Ki,double Kd) {
+        this.Kp = Kp;
+        this.Ki = Ki;
+        this.Kd = Kd;
     }
     public double calculatePower(double target, double current) {
         if(target == current+tolerance||target == current-tolerance)
@@ -24,9 +28,9 @@ public class pidMaybe {
             return 0;
         }
         error = target-current;
-        double d = (error-lastError)*time.seconds();
-        double i = (error-lastError)*(Math.pow(time.seconds(),2)/2);
-        double p = error;
+        double d = Kd * (error-lastError)*time.seconds();
+        double i = Ki * (error-lastError)*(Math.pow(time.seconds(),2)/2);
+        double p = Kp * error;
         coeff(p,i,d);
 
         lastError = error;

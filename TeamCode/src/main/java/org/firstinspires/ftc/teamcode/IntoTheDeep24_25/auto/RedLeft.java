@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 
+@Disabled
 @Autonomous(name = "RED LEFT", group = "Autonomous")
 public class RedLeft extends LinearOpMode {
 
@@ -164,9 +166,10 @@ public class RedLeft extends LinearOpMode {
         armMotor.setTargetPosition(targetPosition);
         armMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        pidMaybe pid = new pidMaybe(0.004, 0, armMotor);
+        //pidMaybe pid = new pidMaybe(0.004, 0, armMotor);
         while (opModeIsActive() && Math.abs(armMotor.getCurrentPosition() - targetPosition) > 5) {
-            double power = pid.calculatePower(targetPosition, armMotor.getCurrentPosition());
+            //double power = pid.calculatePower(targetPosition, armMotor.getCurrentPosition());
+            double power = 0;
             armMotor.setPower(power);
 
             telemetry.addData("Arm Target", targetPosition);

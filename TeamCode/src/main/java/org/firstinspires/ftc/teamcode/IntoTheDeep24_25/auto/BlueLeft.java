@@ -158,9 +158,10 @@ public class BlueLeft extends LinearOpMode {
         armMotor.setTargetPosition(targetPosition);
         armMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        pidMaybe pid = new pidMaybe(0.004, 0, armMotor);
+        //pidMaybe pid = new pidMaybe(0.004, 0, armMotor);
         while (opModeIsActive() && Math.abs(armMotor.getCurrentPosition() - targetPosition) > 5) {
-            double power = pid.calculatePower(targetPosition, armMotor.getCurrentPosition());
+            //double power = pid.calculatePower(targetPosition, armMotor.getCurrentPosition());
+            double power = 0;
             armMotor.setPower(power);
 
             // Debug telemetry
