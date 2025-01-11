@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.TemplateJanx;
 
 @TeleOp(name = "teleop.exe")
 public class arm8 extends OpMode{
-    private static final int ARM_UP_POSITION = 60;
-    private static final int ARM_DOWN_POSITION = 20;
+    private static final int ARM_UP_POSITION = 67;
+    private static final int ARM_DOWN_POSITION = 15;
     DcMotorEx arm,extender;
     // DcMotorEx frontLeft,frontRight,backLeft,backRight;
     TemplateJanx janx;
@@ -35,7 +35,7 @@ public class arm8 extends OpMode{
     }
     @Override
     public void loop(){
-        pidMaybe pid = new pidMaybe(0.004,0.000,0.1);
+        pidMaybe pid = new pidMaybe(0.004,0.0000,0.15);
         double power = pid.calculatePower(getPosition(), arm.getCurrentPosition());
         arm.setTargetPosition(getPosition());
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -43,8 +43,10 @@ public class arm8 extends OpMode{
         extend(gamepad2.right_stick_y);
         janx.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
         arm.setPower(power);
-        telemetry.addData("claw",claw.getPosition());
-        telemetry.addData("extend",extender.getPower());
+
+        telemetry.addData("pos",arm.getCurrentPosition());
+        telemetry.addData("pos",arm.getTargetPosition());
+        telemetry.update();
 
     }
 
