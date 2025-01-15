@@ -10,21 +10,22 @@ import org.json.JSONObject;
 
 import java.io.FileReader;
 
-@Autonomous(name = "AUTO TRACK --- Auto")
-public class auto extends com.qualcomm.robotcore.eventloop.opmode.LinearOpMode {
-    private DcMotorEx frontRight, backRight, frontLeft, backLeft, armMotor;
+@Autonomous(name = "NEW AUTO --- AutoTrack")
+public class NewAuto extends com.qualcomm.robotcore.eventloop.opmode.LinearOpMode {
+    private DcMotorEx frontRight, backRight, frontLeft, backLeft, arm, extender;
     private Servo claw;
 
     @Override
     public void runOpMode() throws InterruptedException {
         TemplateJanx janx = new TemplateJanx(hardwareMap);
-        janx.wheelInit("frontRight", "backRight", "backLeft", "frontLeft");
+        janx.wheelInit("fr", "br", "bl", "fl");
         frontLeft = janx.fl;
         frontRight = janx.fr;
         backRight = janx.br;
         backLeft = janx.bl;
 
-        armMotor = hardwareMap.get(DcMotorEx.class, "arm");
+        arm = hardwareMap.get(DcMotorEx.class, "arm1");
+        extender = hardwareMap.get(DcMotorEx.class, "arm2");
         claw = hardwareMap.get(Servo.class, "claw");
 
         telemetry.addData("Status", "Initialized. Waiting for start...");
@@ -45,18 +46,20 @@ public class auto extends com.qualcomm.robotcore.eventloop.opmode.LinearOpMode {
         for (int i = 0; i < movementLog.length() && opModeIsActive(); i++) {
             try {
                 JSONObject movement = movementLog.getJSONObject(i);
+
                 frontLeft.setVelocity(movement.getDouble("frontLeftVelocity"));
                 frontRight.setVelocity(movement.getDouble("frontRightVelocity"));
                 backLeft.setVelocity(movement.getDouble("backLeftVelocity"));
                 backRight.setVelocity(movement.getDouble("backRightVelocity"));
 
-                armMotor.setTargetPosition(movement.getInt("armPosition"));
-                armMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                arm.setTargetPosition(movement.getInt("armPosition"));
+                arm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                arm.setPower(0.5);
 
-                armMotor.setPower(0.5);
+                extender.setPower(movement.optDouble("extenderPower", 0));
                 claw.setPosition(movement.getDouble("clawPosition"));
 
-                Thread.sleep(50);
+                Thread.sleep(50); // Adjust delay as needed
             } catch (Exception e) {
                 telemetry.addData("Error", "Failed to replay movement at index " + i);
                 telemetry.update();
@@ -88,6 +91,7 @@ public class auto extends com.qualcomm.robotcore.eventloop.opmode.LinearOpMode {
         backLeft.setVelocity(0);
         frontRight.setVelocity(0);
         backRight.setVelocity(0);
-        armMotor.setPower(0);
+        arm.setPower(0);
+        extender.setPower(0);
     }
 }
