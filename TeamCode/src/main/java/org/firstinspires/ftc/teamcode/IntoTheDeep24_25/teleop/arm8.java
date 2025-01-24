@@ -4,17 +4,29 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
+
+/**
+ * Arm positioning: Currently the code automatically sends the arm into the up position, and the driver has to hold "A" to bring it down. Instead we should:
+ * Have the arm start in the down position
+ * Press a button to bring it to the up position and then press a button to bring it back down, no holding "A" down
+ * A (hopefully) low effort ask would be to add an additional position so that there'd be 3 position options:
+ * down position
+ * lower bucket / level 1 ascent position
+ * upper bucket position
+ */
 
 @TeleOp(name = "teleop.exe")
 public class arm8 extends OpMode{
     private static final int ARM_UP_POSITION = 67;
     private static final int ARM_DOWN_POSITION = 15;
+    private static final int LEVEL_1 = 67;
+    private static final int LEVEL_2;
     DcMotorEx arm,extender;
+    boolean flag;
+    int i;
     // DcMotorEx frontLeft,frontRight,backLeft,backRight;
     TemplateJanx janx;
     Servo claw;
@@ -25,7 +37,7 @@ public class arm8 extends OpMode{
         janx.wheelInit("fr","br","bl","fl");
         arm = hardwareMap.get(DcMotorEx.class, "arm1");
         extender = hardwareMap.get(DcMotorEx.class, "arm2");
-        //ctrl hub 0
+        flag = false;
         claw = hardwareMap.get(Servo.class,"claw");
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -37,10 +49,14 @@ public class arm8 extends OpMode{
     public void loop(){
         pidMaybe pid = new pidMaybe(0.004,0.0000,0.15);
         double power = pid.calculatePower(getPosition(), arm.getCurrentPosition());
-        arm.setTargetPosition(getPosition());
+//        if(gamepad2.a){
+//            i++;
+//        }
+        arm.setTargetPosition(positioning(gamepad2.a,gamepad2.b,gamepad2.x));
+        //arm.setTargetPosition(getPosition());
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         claw();
-        extend(gamepad2.right_stick_y);
+        extend(gamepad2.left_stick_y);
         janx.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
         arm.setPower(power);
 
@@ -57,7 +73,6 @@ public class arm8 extends OpMode{
             extender.setPower(0);
         }
     }
-
     public void test(){
         if(gamepad2.y){
             claw.setPosition(1);
@@ -83,6 +98,43 @@ public class arm8 extends OpMode{
         }
         return pos;
     }
+    public int positioning(boolean a, boolean b, boolean c)
+    {
+        int pos = 0;
+        if(a){
+            pos = ARM_DOWN_POSITION;
+        }
+        else if(b){
+            pos = LEVEL_1;
+        }
+        else if(c)
+        {
+            pos = LEVEL_2;
+        }
+        return pos;
+    }
+    public int position(int x)
+    {
+        if(x == 4)
+        {
+            x = 1;
+        }
+        int pos = 0;
+        switch(x)
+        {
+            case(1):
+                pos = ARM_DOWN_POSITION;
+                break;
+            case(2):
+                pos = LEVEL_1;
+                break;
+            case(3):
+                pos = LEVEL_2;
+                break;
+        }
+        return pos;
+    }
+
     public void setArm(){
         if(gamepad2.a){
             arm.setTargetPosition(ARM_UP_POSITION);
@@ -94,6 +146,9 @@ public class arm8 extends OpMode{
             arm.setTargetPosition(arm.getCurrentPosition());
         }
     }
+
+
+
     public void armTestOne(){
         if(gamepad2.a){
             arm.setPower(1);
@@ -105,6 +160,4 @@ public class arm8 extends OpMode{
             arm.setPower(0);
         }
     }
-
 }
-
