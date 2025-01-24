@@ -23,7 +23,7 @@ public class arm8 extends OpMode{
     private static final int ARM_UP_POSITION = 67;
     private static final int ARM_DOWN_POSITION = 15;
     private static final int LEVEL_1 = 67;
-    private static final int LEVEL_2;
+    private static final int LEVEL_2 = 75;
     DcMotorEx arm,extender;
     boolean flag;
     int i;
