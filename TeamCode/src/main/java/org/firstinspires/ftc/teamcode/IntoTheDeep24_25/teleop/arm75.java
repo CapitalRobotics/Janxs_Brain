@@ -1,17 +1,16 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 
-@TeleOp(name = "teleop.exe")
-public class arm8 extends OpMode{
+
+@TeleOp(name = "hi")
+public class arm75 extends OpMode{
     private static final int ARM_UP_POSITION = 67;
     private static final int ARM_DOWN_POSITION = 15;
     DcMotorEx arm,extender;
@@ -23,29 +22,22 @@ public class arm8 extends OpMode{
     public void init(){
         janx = new TemplateJanx(hardwareMap);
         janx.wheelInit("fr","br","bl","fl");
-        arm = hardwareMap.get(DcMotorEx.class, "arm1");
-        extender = hardwareMap.get(DcMotorEx.class, "arm2");
-        //ctrl hub 0
         claw = hardwareMap.get(Servo.class,"claw");
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        arm.setTargetPosition(ARM_DOWN_POSITION);
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        arm.setTargetPosition(ARM_DOWN_POSITION);
+//        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     @Override
     public void loop(){
-        pidMaybe pid = new pidMaybe(0.004,0.0000,0.15);
-        double power = pid.calculatePower(getPosition(), arm.getCurrentPosition());
-        arm.setTargetPosition(getPosition());
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         claw();
-        extend(gamepad2.right_stick_y);
+       // extend(gamepad2.right_stick_y);
         janx.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
-        arm.setPower(power);
+        //arm.setPower(0);
 
-        telemetry.addData("pos",arm.getCurrentPosition());
-        telemetry.addData("pos",arm.getTargetPosition());
+//        telemetry.addData("pos",arm.getCurrentPosition());
+//        telemetry.addData("pos",arm.getTargetPosition());
         telemetry.update();
 
     }
@@ -105,6 +97,4 @@ public class arm8 extends OpMode{
             arm.setPower(0);
         }
     }
-
 }
-
