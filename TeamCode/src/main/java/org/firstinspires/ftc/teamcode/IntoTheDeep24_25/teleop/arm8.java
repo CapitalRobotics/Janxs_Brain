@@ -51,6 +51,7 @@ public class arm8 extends OpMode{
         arm.setPower(power);
 
         telemetry.addData("pos",arm.getCurrentPosition());
+        telemetry.addData("claw",claw.getPosition());
         telemetry.addData("pos",arm.getTargetPosition());
         telemetry.update();
 
@@ -65,7 +66,7 @@ public class arm8 extends OpMode{
     }
     public void test(){
         if(gamepad2.y){
-            claw.setPosition(1);
+            claw.setPosition(0.35);
         }
         else{
             claw.setPosition(0);
@@ -73,9 +74,9 @@ public class arm8 extends OpMode{
     }
     public void claw(){
         if (gamepad2.left_trigger!=0) {
-            claw.setPosition(1);
+            claw.setPosition(0.35);
         } else if (gamepad2.right_trigger!=0) {
-            claw.setPosition(-1);
+            claw.setPosition(0);
         }
     }
     public int getPosition(){
