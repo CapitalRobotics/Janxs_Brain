@@ -8,16 +8,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 
-/**
- * Arm positioning: Currently the code automatically sends the arm into the up position, and the driver has to hold "A" to bring it down. Instead we should:
- * Have the arm start in the down position
- * Press a button to bring it to the up position and then press a button to bring it back down, no holding "A" down
- * A (hopefully) low effort ask would be to add an additional position so that there'd be 3 position options:
- * down position
- * lower bucket / level 1 ascent position
- * upper bucket position
- */
-
 @TeleOp(name = "teleop.exe")
 public class arm8 extends OpMode{
     private static final int ARM_UP_POSITION = 67;
