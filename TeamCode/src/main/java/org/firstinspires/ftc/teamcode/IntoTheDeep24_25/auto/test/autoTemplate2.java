@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto.test;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -15,9 +15,6 @@ public class autoTemplate2 extends TemplateJanx{
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    private static final int ARM_DOWN_POSITION = 15;
-    private static final int LEVEL_1 = 67;
-    private static final int LEVEL_2 = 75;
 
     pidMaybe pid;
     HardwareMap h;
@@ -38,7 +35,7 @@ public class autoTemplate2 extends TemplateJanx{
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        arm.setTargetPosition(ARM_DOWN_POSITION);
+        arm.setTargetPosition(15);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
@@ -86,38 +83,58 @@ public class autoTemplate2 extends TemplateJanx{
         fl.setPower(0);
     }
 
-    public void moveArm(int x,int timeout)
+    public void moveArm(int targetPos,int timeout)
     {
         while(runtime.seconds()<timeout)
         {
-            double power = pid.calculatePower(getPosition(x), arm.getCurrentPosition());
+            arm.setTargetPosition(targetPos);
+            double power = pid.calculatePower(targetPos, arm.getCurrentPosition());
+            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            arm.setPower(power);
         }
 
     }
 
-    public int getPosition(int x)
+    public void claw(boolean open)
     {
-        int pos;
-        switch(x)
+        if(open)
         {
-            case(1):
-                pos = ARM_DOWN_POSITION;
-                break;
-            case(2):
-                pos = LEVEL_1;
-                break;
-            case(3):
-                pos = LEVEL_2;
-                break;
+            claw.setPosition(0);
         }
-        return pos;
+        if(!open)
+        {
+            claw.setPosition(0.35);
+        }
     }
-//power = pid.calculatePower(getPosition(), arm.getCurrentPosition());
+
+    public void turn(boolean right)
+    {
+        int turn = 32;
+        if(right)
+        {
+            drive(1400,turn,-turn,5);
+        }
+        else
+        {
+            drive(1400,-turn,turn,5);
+        }
+    }
+
+//    public int getPosition(int x)
+//    {
+//        int pos = 0;
+//        switch(x)
+//        {
+//            case(1):
+//                pos = ARM_DOWN_POSITION;
+//                break;
+//            case(2):
+//                pos = LEVEL_1;
+//                break;
+//            case(3):
+//                pos = LEVEL_2;
+//                break;
+//        }
+//        return pos;
+//    }
 }
-/**
- *
- * int main()
- * {
- *
- * }
- */
