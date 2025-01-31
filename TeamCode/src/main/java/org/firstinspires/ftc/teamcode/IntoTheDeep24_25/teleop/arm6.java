@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,11 +7,11 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
-@Disabled
-@TeleOp(name = "the one with a scrimmage")
-public class armMaybe2 extends LinearOpMode {
+
+@TeleOp(name = "the one with a rewrite")
+public class arm6 extends LinearOpMode {
     // Position of the arm when it's down
-    int armUpPosition = 30;
+    int armUpPosition = 60;
 
     // Position of the arm when it's lifted
     int armDownPosition = 150;
@@ -21,8 +20,7 @@ public class armMaybe2 extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        DcMotorEx armMotor = hardwareMap.get(DcMotorEx.class, "arm");
-        Servo claw = hardwareMap.get(Servo.class, "claw");
+        DcMotorEx armMotor = hardwareMap.get(DcMotorEx.class, "arm1");
 
         // Reset the motor encoder so that it reads zero ticks
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -34,17 +32,13 @@ public class armMaybe2 extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            if (gamepad2.left_trigger!=0) {
-                claw.setPosition(1);
-            } else if (gamepad2.right_trigger!=0) {
-                claw.setPosition(-1);
-            }
             // If the A button is pressed, raise the arm
             armMotor.setTargetPosition(getPosition());
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            pidMaybe pid = new pidMaybe(0.004, 0, armMotor);
-//            double power = pid.calculatePower(getPosition(), armMotor.getCurrentPosition());
-            double power = 0;
+            //0.004,0,0.1
+            //pidMaybe pid = new pidMaybe(0.004, 0.002,0.08);
+            pidMaybe pid = new pidMaybe(0.004,0,0.1);
+            double power = pid.calculatePower(getPosition(), armMotor.getCurrentPosition());
             armMotor.setPower(power);
 
 
@@ -56,7 +50,7 @@ public class armMaybe2 extends LinearOpMode {
 
             // Show the position of the armMotor on telemetry
             telemetry.addData("Encoder Position", position);
-           // telemetry.addData("time", pid.getTime());
+            telemetry.addData("time", pid.getTime());
             telemetry.addData("Power", power);
             // Show the target position of the armMotor on telemetry
             telemetry.addData("Desired Position", desiredPosition);
@@ -64,18 +58,15 @@ public class armMaybe2 extends LinearOpMode {
             telemetry.update();
         }
     }
-    public void claw() {
-
-    }
-        public int getPosition(){
-            int pos = 0;
-            if (gamepad2.a) {
-                pos = armDownPosition;
-            }
-            else{
-                pos = armUpPosition;
-            }
-            return pos;
+    public int getPosition(){
+        int pos = 0;
+        if (gamepad2.a) {
+            pos = armDownPosition;
         }
+        else{
+            pos = armUpPosition;
+        }
+        return pos;
     }
+}
 

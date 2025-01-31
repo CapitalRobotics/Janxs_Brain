@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode;
+import static com.qualcomm.robotcore.util.Range.clip;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -51,8 +53,6 @@ public class TemplateJanx {
         fl.setPower(0);
         br.setPower(0);
         fr.setPower(0);
-
-
     }
 
 
@@ -93,6 +93,26 @@ public class TemplateJanx {
 
     public void telscoping(){
 
+    }
+
+    public void drive(double LSX,double LSY,double RSX){
+        int Speed = 1600;
+        double lx = Math.pow(LSX,3);
+        double ly = -(Math.pow(LSY,3));
+        double rx = -Math.pow(RSX,3);
+        //is RSX backwards? I may need to fix the canva
+        if(LSX != 0 || LSY != 0 || RSX != 0){
+            fr.setVelocity(Speed*(clip((ly)-lx,-1,1)-rx));
+            fl.setVelocity(Speed*(clip((ly)+lx,-1,1)+rx));
+            br.setVelocity(Speed*(clip((ly)+lx,-1,1)-rx));
+            bl.setVelocity(Speed*(clip((ly)-lx,-1,1)+rx));
+        }
+        else{
+            fl.setVelocity(0);
+            bl.setVelocity(0);
+            fr.setVelocity(0);
+            br.setVelocity(0);
+        }
     }
 
 }

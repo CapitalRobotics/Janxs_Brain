@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 
 @TeleOp(name = "letMeMoveItMoveIt")
@@ -55,8 +56,9 @@ boolean flag = false;
         // If the A button is pressed, raise the arm
         armMotor.setTargetPosition(getPosition());
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        pidMaybe pid = new pidMaybe(0.004, 0, armMotor);
-        double power = pid.calculatePower(getPosition(), armMotor.getCurrentPosition());
+//        pidMaybe pid = new pidMaybe(0.004, 0, armMotor);
+//        double power = pid.calculatePower(getPosition(), armMotor.getCurrentPosition());
+        double power = 0;
         armMotor.setPower(power);
 
         // Show the position of the armMotor on telemetry
