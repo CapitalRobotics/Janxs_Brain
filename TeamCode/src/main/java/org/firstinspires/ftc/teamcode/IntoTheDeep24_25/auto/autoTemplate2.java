@@ -5,8 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.Template;
+import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 
 public class autoTemplate2 extends TemplateJanx{
@@ -20,6 +19,7 @@ public class autoTemplate2 extends TemplateJanx{
     private static final int LEVEL_1 = 67;
     private static final int LEVEL_2 = 75;
 
+    pidMaybe pid;
     HardwareMap h;
     DcMotorEx extender, arm;
     Servo claw;
@@ -28,6 +28,7 @@ public class autoTemplate2 extends TemplateJanx{
         super(h);
         this.h = h;
         runtime.reset();
+        pid = new pidMaybe(0.004,0.0000,0.15);
     }
 
     public void armInit(String a, String e, String c) {
@@ -85,40 +86,33 @@ public class autoTemplate2 extends TemplateJanx{
         fl.setPower(0);
     }
 
-    public void setLevel1(int timeout)
+    public void moveArm(int x,int timeout)
     {
-        arm.setTargetPosition(LEVEL_1);
         while(runtime.seconds()<timeout)
         {
-            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setPower(1);
+            double power = pid.calculatePower(getPosition(x), arm.getCurrentPosition());
         }
-        arm.setPower(0);
-
-    }
-    public void setLevel2(int timeout)
-    {
-        arm.setTargetPosition(LEVEL_2);
-        while(runtime.seconds()<timeout)
-        {
-            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setPower(1);
-        }
-        arm.setPower(0);
-
-    }
-    public void bringDown(int timeout)
-    {
-        arm.setTargetPosition(ARM_DOWN_POSITION);
-        while(runtime.seconds()<timeout)
-        {
-            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setPower(1);
-        }
-        arm.setPower(0);
 
     }
 
+    public int getPosition(int x)
+    {
+        int pos;
+        switch(x)
+        {
+            case(1):
+                pos = ARM_DOWN_POSITION;
+                break;
+            case(2):
+                pos = LEVEL_1;
+                break;
+            case(3):
+                pos = LEVEL_2;
+                break;
+        }
+        return pos;
+    }
+//power = pid.calculatePower(getPosition(), arm.getCurrentPosition());
 }
 /**
  *

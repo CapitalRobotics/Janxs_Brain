@@ -37,6 +37,18 @@ public class arm8 extends OpMode{
     }
     @Override
     public void loop(){
+        armTestOne();
+        claw();
+        extend(gamepad2.left_stick_y);
+        janx.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
+        telemetry.addData("pos",arm.getCurrentPosition());
+        telemetry.addData("claw",claw.getPosition());
+        telemetry.addData("pos",arm.getTargetPosition());
+        telemetry.update();
+
+    }
+    public void arm()
+    {
         pidMaybe pid = new pidMaybe(0.004,0.0000,0.15);
         double power = pid.calculatePower(getPosition(), arm.getCurrentPosition());
 //        if(gamepad2.a){
@@ -45,16 +57,7 @@ public class arm8 extends OpMode{
         arm.setTargetPosition(positioning(gamepad2.a,gamepad2.b,gamepad2.x));
         //arm.setTargetPosition(getPosition());
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        claw();
-        extend(gamepad2.left_stick_y);
-        janx.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
         arm.setPower(power);
-
-        telemetry.addData("pos",arm.getCurrentPosition());
-        telemetry.addData("claw",claw.getPosition());
-        telemetry.addData("pos",arm.getTargetPosition());
-        telemetry.update();
-
     }
 
     public void extend(double x){
