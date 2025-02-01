@@ -88,9 +88,9 @@ public class autoTemplate2 extends TemplateJanx{
         while(runtime.seconds()<timeout)
         {
             arm.setTargetPosition(targetPos);
-            double power = pid.calculatePower(targetPos, arm.getCurrentPosition());
+            //double power = pid.calculatePower(targetPos, arm.getCurrentPosition(),time);
             arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setPower(power);
+           // arm.setPower(power);
         }
 
     }
@@ -119,22 +119,11 @@ public class autoTemplate2 extends TemplateJanx{
             drive(1400,-turn,turn,5);
         }
     }
+    public void strafe(boolean left)
+    {
+        if(left)
+        {
 
-//    public int getPosition(int x)
-//    {
-//        int pos = 0;
-//        switch(x)
-//        {
-//            case(1):
-//                pos = ARM_DOWN_POSITION;
-//                break;
-//            case(2):
-//                pos = LEVEL_1;
-//                break;
-//            case(3):
-//                pos = LEVEL_2;
-//                break;
-//        }
-//        return pos;
-//    }
+        }
+    }
 }

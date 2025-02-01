@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class pidMaybe {
     private double Kp,Ki,Kd;
     private double error;
+    private double p,i,d;
     private double lastError = 0;
     private double tolerance = 4;
 
@@ -21,6 +22,18 @@ public class pidMaybe {
         this.Ki = Ki;
         this.Kd = Kd;
     }
+    public double calculatePower(double target, double current,double time) {
+        error = target-current;
+//        if(error<tolerance)
+//        {
+//            time = 0;
+//        }
+        d = Kd * (error-lastError)*time;
+        i = Ki * (error-lastError)*(Math.pow(time,2)/2);
+        p = Kp * error;
+        lastError = error;
+        return p+i+d;
+    }
     public double calculatePower(double target, double current) {
         if(target == current+tolerance||target == current-tolerance)
         {
@@ -28,11 +41,9 @@ public class pidMaybe {
             return 0;
         }
         error = target-current;
-        double d = Kd * (error-lastError)*time.seconds();
-        double i = Ki * (error-lastError)*(Math.pow(time.seconds(),2)/2);
-        double p = Kp * error;
-        coeff(p,i,d);
-
+        d = Kd * (error-lastError)*time.seconds();
+        i = Ki * (error-lastError)*(Math.pow(time.seconds(),2)/2);
+        p = Kp * error;
         lastError = error;
         return p+i+d;
     }
@@ -41,7 +52,7 @@ public class pidMaybe {
     }
 
 
-    public String coeff(double p, double i, double d) {
+    public String coeff() {
         // Format the coefficients into a string
         String coeffString = String.format("P: %.2f, I: %.2f, D: %.2f", p, i, d);
 

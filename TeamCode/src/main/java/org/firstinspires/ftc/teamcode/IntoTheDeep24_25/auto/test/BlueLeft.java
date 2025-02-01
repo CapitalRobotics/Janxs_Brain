@@ -24,6 +24,10 @@ public class BlueLeft extends OpMode {
         auto.moveArm(ARM_DOWN_POSITION,5);
         auto.claw(false);
         auto.moveArm(LEVEL_1,5);
+        auto.turn(false);
+        auto.claw(true);
+        auto.turn(true);
+
 
     }
 }
