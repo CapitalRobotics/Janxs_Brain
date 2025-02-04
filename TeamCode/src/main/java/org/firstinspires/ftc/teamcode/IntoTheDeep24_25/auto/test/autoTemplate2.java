@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -8,9 +9,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 
+@Disabled
 public class autoTemplate2 extends TemplateJanx{
     private ElapsedTime runtime = new ElapsedTime();
-    static final double COUNTS_PER_MOTOR_REV = 1440;    // 288- core hex motor
+    static final double COUNTS_PER_MOTOR_REV = 288;    // 288- core hex motor
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // No External Gearing.
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -25,7 +27,7 @@ public class autoTemplate2 extends TemplateJanx{
         super(h);
         this.h = h;
         runtime.reset();
-        pid = new pidMaybe(0.004,0.0000,0.15);
+        pid = new pidMaybe(0.004,0.0001,0.15);
     }
 
     public void armInit(String a, String e, String c) {
@@ -72,10 +74,10 @@ public class autoTemplate2 extends TemplateJanx{
             bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            fr.setPower(speed);
-            br.setPower(speed);
-            bl.setPower(speed);
-            fl.setPower(speed);
+            fr.setPower(1);
+            br.setPower(1);
+            bl.setPower(1);
+            fl.setPower(1);
         }
         fr.setPower(0);
         br.setPower(0);
@@ -83,15 +85,28 @@ public class autoTemplate2 extends TemplateJanx{
         fl.setPower(0);
     }
 
-    public void moveArm(int targetPos,int timeout)
+    public void turn(boolean right)
     {
-        while(runtime.seconds()<timeout)
+        int turn = 33;
+        if(right)
         {
+            drive(400,-turn,turn,3);
+        }
+        else
+        {
+            drive(400,turn,-turn,3);
+        }
+    }
+
+    public void moveArm(int targetPos)
+    {
+
             arm.setTargetPosition(targetPos);
             //double power = pid.calculatePower(targetPos, arm.getCurrentPosition(),time);
             arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            arm.setPower(1);
            // arm.setPower(power);
-        }
+
 
     }
 
@@ -107,18 +122,47 @@ public class autoTemplate2 extends TemplateJanx{
         }
     }
 
-    public void turn(boolean right)
-    {
-        int turn = 32;
+
+    /*
+    int flTarget = 0,brTarget = 0,frTarget = 0,blTarget = 0;
+        int turn = 33;
         if(right)
         {
-            drive(1400,turn,-turn,5);
+            flTarget = fl.getCurrentPosition() + (int) (-turn * COUNTS_PER_INCH);
+            blTarget = bl.getCurrentPosition() + (int) (-turn * COUNTS_PER_INCH);
+            brTarget = br.getCurrentPosition() + (int) (turn * COUNTS_PER_INCH);
+            frTarget = fr.getCurrentPosition() + (int) (turn * COUNTS_PER_INCH);
         }
-        else
+        if(!right)
         {
-            drive(1400,-turn,turn,5);
+            flTarget = fl.getCurrentPosition() + (int) (turn * COUNTS_PER_INCH);
+            blTarget = bl.getCurrentPosition() + (int) (turn * COUNTS_PER_INCH);
+            brTarget = br.getCurrentPosition() + (int) (-turn * COUNTS_PER_INCH);
+            frTarget = fr.getCurrentPosition() + (int) (-turn * COUNTS_PER_INCH);
         }
-    }
+
+        while(runtime.seconds()<6)
+        {
+            fl.setTargetPosition(flTarget);
+            fr.setTargetPosition(frTarget);
+            bl.setTargetPosition(blTarget);
+            br.setTargetPosition(brTarget);
+
+            fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            fr.setPower(1);
+            br.setPower(1);
+            bl.setPower(1);
+            fl.setPower(1);
+        }
+        fr.setPower(0);
+        br.setPower(0);
+        bl.setPower(0);
+        fl.setPower(0);
+     */
     public void strafe(boolean left)
     {
         if(left)

@@ -8,7 +8,9 @@ public class BlueLeft extends OpMode {
     autoTemplate2 auto;
     private static final int ARM_DOWN_POSITION = 15;
     private static final int LEVEL_1 = 67;
-    private static final int LEVEL_2 = 75;
+    private static final int LEVEL_2 = 127;
+    private static final int speed = 1600;
+    private static final int time = 2;
     public void init()
     {
         auto = new autoTemplate2(hardwareMap);
@@ -17,17 +19,22 @@ public class BlueLeft extends OpMode {
     }
     public void loop()
     {
-        auto.turn(false);
-        auto.drive(1600,28,28,4);
-        auto.turn(true);
-        auto.drive(1600,6,6,4);
-        auto.moveArm(ARM_DOWN_POSITION,5);
-        auto.claw(false);
-        auto.moveArm(LEVEL_1,5);
-        auto.turn(false);
-        auto.claw(true);
-        auto.turn(true);
-
-
+        auto.moveArm(LEVEL_2);
+        auto.drive(speed,55,55,time);
+        turn(true);
+        auto.drive(speed,29,29,time);
+        auto.moveArm(LEVEL_1);
+    }
+    public void turn(boolean right)
+    {
+        int turn = 33;
+        if(right)
+        {
+            auto.drive(400,-turn,turn,3);
+        }
+        else
+        {
+            auto.drive(400,turn,-turn,3);
+        }
     }
 }

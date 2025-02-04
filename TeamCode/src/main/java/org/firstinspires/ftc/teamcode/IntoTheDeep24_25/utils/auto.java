@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.utils;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -7,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 
+@Disabled
 public class auto {
     HardwareMap h = null;
     DcMotorEx fr,fl,br,bl;

@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.utils;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
+@Disabled
 public class Butter {
     private double maxPower;
     private double minPower;

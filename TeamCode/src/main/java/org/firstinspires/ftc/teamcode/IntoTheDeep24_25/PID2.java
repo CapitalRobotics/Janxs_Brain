@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
@@ -7,6 +8,7 @@ https://pidexplained.com/how-to-tune-a-pid-controller/
 https://gm0.org/en/latest/docs/software/concepts/control-loops.html
 https://www.ctrlaltftc.com/the-pid-controller
  */
+@Disabled
 public class PID2 {
     private int kp = 0;
     private int kd = 0;
