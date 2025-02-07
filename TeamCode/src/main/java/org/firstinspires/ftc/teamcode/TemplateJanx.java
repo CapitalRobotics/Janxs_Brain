@@ -102,7 +102,7 @@ public class TemplateJanx {
         double rx = -Math.pow(RSX,3);
         //is RSX backwards? I may need to fix the canva
         if(LSX != 0 || LSY != 0 || RSX != 0){
-            fr.setVelocity(Speed*(clip((ly)-lx,-1,1)-rx));
+            fr.setVelocity(Speed*(clip((-ly)-lx,-1,1)-rx));
             fl.setVelocity(Speed*(clip((ly)+lx,-1,1)+rx));
             br.setVelocity(Speed*(clip((ly)+lx,-1,1)-rx));
             bl.setVelocity(Speed*(clip((ly)-lx,-1,1)+rx));

@@ -22,13 +22,13 @@ public class all extends OpMode {
       janx.close();
 
       janx.moveArm(LEVEL_2);
-      janx.drive(2400,15,15,2);
+      janx.drive(2400,15,15);
       janx.moveArm(LEVEL_1);
-      janx.drive(2400,-15,-15,2);
+      janx.drive(2400,-15,-15);
       janx.turn(true);
       janx.drive(2400,6,6);
       janx.turn(false);
-       janx.drive(2400,6,6);
+      janx.drive(2400,6,6);
 //      janx.
     }
     public void turn(boolean right)

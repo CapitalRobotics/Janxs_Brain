@@ -59,30 +59,27 @@ public class autoTemplate2 extends TemplateJanx{
         fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    public void drive(double speed, double leftInches, double rightInches) {
+    public void drive(double speed, double leftInches, double rightInches,int timeOuts) {
         int flTarget = fl.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
         int blTarget = bl.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
         int brTarget = br.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
         int frTarget = fr.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-
+        while (runtime.seconds() < timeOuts){
             fl.setTargetPosition(flTarget);
-            fr.setTargetPosition(frTarget);
-            bl.setTargetPosition(blTarget);
-            br.setTargetPosition(brTarget);
+         fr.setTargetPosition(frTarget);
+         bl.setTargetPosition(blTarget);
+         br.setTargetPosition(brTarget);
 
-            fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+         fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+         fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            fr.setPower(1);
-            br.setPower(1);
-            bl.setPower(1);
-            fl.setPower(1);
-    }
-
-    public void stop()
-    {
+         fr.setPower(1);
+         br.setPower(1);
+         bl.setPower(1);
+         fl.setPower(1);
+     }
         fr.setPower(0);
         br.setPower(0);
         bl.setPower(0);
