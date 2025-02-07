@@ -79,7 +79,6 @@ public class autoTemplate2 extends TemplateJanx{
             br.setPower(1);
             bl.setPower(1);
             fl.setPower(1);
-        sleep(250);
     }
 
     public void stop()
