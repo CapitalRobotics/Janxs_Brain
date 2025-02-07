@@ -95,7 +95,7 @@ public class TemplateJanx {
 
     }
 
-    public void drive(double LSX,double LSY,double RSX){
+    public void mecanum(double LSX,double LSY,double RSX){
         int Speed = 1600;
         double lx = Math.pow(LSX,3);
         double ly = -(Math.pow(LSY,3));

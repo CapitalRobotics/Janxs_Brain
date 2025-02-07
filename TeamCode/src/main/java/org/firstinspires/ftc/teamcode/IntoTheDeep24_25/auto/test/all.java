@@ -10,34 +10,39 @@ public class all extends OpMode {
     private static final int ARM_DOWN_POSITION = 15;
     private static final int LEVEL_1 = 67;
     private static final int LEVEL_2 = 127;
-        public void init()
-        {
-            janx = new autoTemplate2(hardwareMap);
-            janx.armInit("arm1","arm2","claw");
-            janx.wheelInit("fr","br","bl","fl");
+    public void init()
+    {
+     janx = new autoTemplate2(hardwareMap);
+     janx.armInit("arm1","arm2","claw");
+     janx.wheelInit("fr","br","bl","fl");
+    }
+    public void loop()
+    {
+      janx.open();
+      janx.close();
 
-        }
-        public void loop() {
-            speed = 2400;
-            sec = 3;
-            telemetry.addData("power",janx.fl.getPower());
-           // janx.moveArm(LEVEL_1,sec);
-            janx.drive(speed,24,24,sec);
-            janx.turn(true);
-            janx.moveArm(ARM_DOWN_POSITION);
-            janx.claw(false);
-            janx.moveArm(LEVEL_2);
-            janx.claw(true);
-            janx.turn(false);
-            janx.drive(speed,-24,24,sec);
-            telemetry.update();
-        }
-        public void stop()
+      janx.moveArm(LEVEL_2);
+      janx.drive(2400,15,15,2);
+      janx.moveArm(LEVEL_1);
+      janx.drive(2400,-15,-15,2);
+      janx.turn(true);
+      janx.drive(2400,6,6);
+      janx.turn(false);
+       janx.drive(2400,6,6);
+//      janx.
+    }
+    public void turn(boolean right)
+    {
+        int turn = 33;
+        if(right)
         {
-            janx.fl.setPower(0);
-            janx.fr.setPower(0);
-            janx.bl.setPower(0);
-            janx.br.setPower(0);
+            janx.drive(400,-turn,turn,3);
         }
+        else
+        {
+            janx.drive(400,turn,-turn,3);
+        }
+    }
+
 
 }

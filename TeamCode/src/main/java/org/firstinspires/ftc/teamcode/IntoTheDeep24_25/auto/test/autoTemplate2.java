@@ -62,7 +62,7 @@ public class autoTemplate2 extends TemplateJanx{
         int blTarget = bl.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
         int brTarget = br.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
         int frTarget = fr.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-        while(runtime.seconds()<timeout)
+        while(runtime.seconds()<3)
         {
             fl.setTargetPosition(flTarget);
             fr.setTargetPosition(frTarget);
@@ -100,25 +100,34 @@ public class autoTemplate2 extends TemplateJanx{
 
     public void moveArm(int targetPos)
     {
-
-            arm.setTargetPosition(targetPos);
-            //double power = pid.calculatePower(targetPos, arm.getCurrentPosition(),time);
-            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setPower(1);
-           // arm.setPower(power);
-
-
+     arm.setTargetPosition(targetPos);
+     //double power = pid.calculatePower(targetPos, arm.getCurrentPosition(),time);
+     arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+     arm.setPower(1);
+     // arm.setPower(power);
     }
 
-    public void claw(boolean open)
+    public void open()
     {
-        if(open)
-        {
+        while(runtime.seconds()<2) {
             claw.setPosition(0);
         }
-        if(!open)
-        {
-            claw.setPosition(0.35);
+    }
+    public void close()
+    {
+        while(runtime.seconds()<2) {
+            claw.setPosition(1);
+        }
+    }
+    public void claw(boolean open,int time)
+    {
+        while(runtime.seconds()<time) {
+            if (open) {
+                claw.setPosition(0);
+            }
+            if (!open) {
+                claw.setPosition(1);
+            }
         }
     }
 
