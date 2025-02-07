@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto.test;
 
+import static java.lang.Thread.sleep;
+
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -57,13 +59,12 @@ public class autoTemplate2 extends TemplateJanx{
         fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    public void drive(double speed, double leftInches, double rightInches, int timeout) {
+    public void drive(double speed, double leftInches, double rightInches) {
         int flTarget = fl.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
         int blTarget = bl.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
         int brTarget = br.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
         int frTarget = fr.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-        while(runtime.seconds()<3)
-        {
+
             fl.setTargetPosition(flTarget);
             fr.setTargetPosition(frTarget);
             bl.setTargetPosition(blTarget);
@@ -78,13 +79,16 @@ public class autoTemplate2 extends TemplateJanx{
             br.setPower(1);
             bl.setPower(1);
             fl.setPower(1);
-        }
+        sleep(250);
+    }
+
+    public void stop()
+    {
         fr.setPower(0);
         br.setPower(0);
         bl.setPower(0);
         fl.setPower(0);
     }
-
     public void turn(boolean right)
     {
         int turn = 33;
