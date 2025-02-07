@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.templates;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+@Disabled
 public class AutoTemp {
     public DcMotorEx fr = null;
     public DcMotorEx br = null;

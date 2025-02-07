@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto.scrimmage;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
+@Disabled
 @Autonomous(name = "BLUE RIGHT", group = "Autonomous")
 public class BlueRight extends LinearOpMode {
 

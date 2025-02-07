@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 
-
+@Disabled
 @TeleOp(name = "hi")
 public class arm75 extends OpMode{
     private static final int ARM_UP_POSITION = 67;

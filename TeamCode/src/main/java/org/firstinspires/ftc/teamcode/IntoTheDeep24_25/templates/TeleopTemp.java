@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.templates;
 
 import static com.qualcomm.robotcore.util.Range.clip;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -9,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
-
+@Disabled
 public class TeleopTemp extends OpMode {
     // Drivetrain motors
     private DcMotorEx frontRight;
