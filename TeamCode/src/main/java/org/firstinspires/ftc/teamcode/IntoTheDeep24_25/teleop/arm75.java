@@ -35,7 +35,7 @@ public class arm75 extends OpMode{
     public void loop(){
         claw();
        // extend(gamepad2.right_stick_y);
-        janx.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
+        //janx.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
         //arm.setPower(0);
 
 //        telemetry.addData("pos",arm.getCurrentPosition());
