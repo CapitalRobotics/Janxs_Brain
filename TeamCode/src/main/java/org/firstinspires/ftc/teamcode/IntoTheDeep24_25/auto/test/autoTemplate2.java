@@ -8,11 +8,12 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 
 @Disabled
-public class autoTemplate2 extends TemplateJanx{
+public class autoTemplate2 extends TemplateJanx {
     private ElapsedTime runtime = new ElapsedTime();
     static final double COUNTS_PER_MOTOR_REV = 288;    // 288- core hex motor
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // No External Gearing.
@@ -29,7 +30,7 @@ public class autoTemplate2 extends TemplateJanx{
         super(h);
         this.h = h;
         runtime.reset();
-        pid = new pidMaybe(0.004,0.0001,0.15);
+        pid = new pidMaybe(0.004, 0.0001, 0.15);
     }
 
     public void armInit(String a, String e, String c) {
@@ -59,69 +60,64 @@ public class autoTemplate2 extends TemplateJanx{
         fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    public void drive(double speed, double leftInches, double rightInches,int timeOuts) {
+    public void drive(double speed, double leftInches, double rightInches, int timeOuts) {
         int flTarget = fl.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
         int blTarget = bl.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
         int brTarget = br.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
         int frTarget = fr.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-        while (runtime.seconds() < timeOuts){
+        while (fl.getCurrentPosition() < flTarget && fr.getCurrentPosition() < frTarget) {
             fl.setTargetPosition(flTarget);
-         fr.setTargetPosition(frTarget);
-         bl.setTargetPosition(blTarget);
-         br.setTargetPosition(brTarget);
+            fr.setTargetPosition(frTarget);
+            bl.setTargetPosition(blTarget);
+            br.setTargetPosition(brTarget);
 
-         fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-         fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-         fr.setPower(1);
-         br.setPower(1);
-         bl.setPower(1);
-         fl.setPower(1);
-     }
+            fr.setPower(1);
+            br.setPower(1);
+            bl.setPower(1);
+            fl.setPower(1);
+        }
         fr.setPower(0);
         br.setPower(0);
         bl.setPower(0);
         fl.setPower(0);
     }
-    public void turn(boolean right)
-    {
+
+    public void turn(boolean right) {
         int turn = 33;
-        if(right)
-        {
-            drive(400,-turn,turn,3);
-        }
-        else
-        {
-            drive(400,turn,-turn,3);
+        if (right) {
+            drive(400, -turn, turn, 3);
+        } else {
+            drive(400, turn, -turn, 3);
         }
     }
 
-    public void moveArm(int targetPos)
-    {
-     arm.setTargetPosition(targetPos);
-     //double power = pid.calculatePower(targetPos, arm.getCurrentPosition(),time);
-     arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-     arm.setPower(1);
-     // arm.setPower(power);
+    public void moveArm(int targetPos) {
+        arm.setTargetPosition(targetPos);
+        //double power = pid.calculatePower(targetPos, arm.getCurrentPosition(),time);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setPower(1);
+        // arm.setPower(power);
     }
 
-    public void open()
-    {
-        while(runtime.seconds()<2) {
+    public void open() {
+        while (runtime.seconds() < 2) {
             claw.setPosition(0);
         }
     }
-    public void close()
-    {
-        while(runtime.seconds()<2) {
+
+    public void close() {
+        while (runtime.seconds() < 2) {
             claw.setPosition(1);
         }
     }
-    public void claw(boolean open,int time)
-    {
-        while(runtime.seconds()<time) {
+
+    public void claw(boolean open, int time) {
+        while (runtime.seconds() < time) {
             if (open) {
                 claw.setPosition(0);
             }
@@ -172,10 +168,8 @@ public class autoTemplate2 extends TemplateJanx{
         bl.setPower(0);
         fl.setPower(0);
      */
-    public void strafe(boolean left)
-    {
-        if(left)
-        {
+    public void strafe(boolean left) {
+        if (left) {
 
         }
     }
