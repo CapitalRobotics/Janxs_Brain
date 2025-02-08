@@ -35,7 +35,7 @@ public class armBase extends OpMode{
         claw();
         extend(gamepad2.right_stick_y);
         //test();
-        janx.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
+        //janx.drive(gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x);
         setArm();
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(0.5);
