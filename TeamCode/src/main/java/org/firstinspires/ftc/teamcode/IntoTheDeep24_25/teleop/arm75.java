@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
 
-
+@Disabled
 @TeleOp(name = "hi")
 public class arm75 extends OpMode{
     private static final int ARM_DOWN_POSITION = 0;

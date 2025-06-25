@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto.autoTrack;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -10,6 +11,7 @@ import org.json.JSONObject;
 
 import java.io.FileReader;
 
+@Disabled
 @Autonomous(name = "AUTO TRACK --- Auto")
 public class auto extends com.qualcomm.robotcore.eventloop.opmode.LinearOpMode {
     private DcMotorEx frontRight, backRight, frontLeft, backLeft, armMotor;

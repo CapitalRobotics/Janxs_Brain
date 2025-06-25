@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto.autoTrack;
 
 import static com.qualcomm.robotcore.util.Range.clip;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -21,6 +22,7 @@ import android.net.Uri;
 import java.io.OutputStream;
 import java.io.IOException;
 
+@Disabled
 @TeleOp(name = "AUTO TRACK --- TeleOp")
 public class teleop extends OpMode {
     private DcMotorEx frontRight, backRight, frontLeft, backLeft, armMotor;

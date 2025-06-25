@@ -1,26 +1,28 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop.arm;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 
-@TeleOp(name = "the one with a rewrite")
-public class arm6 extends LinearOpMode {
+@Disabled
+@TeleOp(name = "the one with two motors")
+public class arm7 extends LinearOpMode {
     // Position of the arm when it's down
     int armUpPosition = 60;
 
     // Position of the arm when it's lifted
     int armDownPosition = 150;
     // Find a motor in the hardware map named "Arm Motor"
-
+    DcMotorEx armMotor,extender;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        DcMotorEx armMotor = hardwareMap.get(DcMotorEx.class, "arm1");
+        armMotor = hardwareMap.get(DcMotorEx.class, "arm1");
+        extender = hardwareMap.get(DcMotorEx.class, "arm2");
 
         // Reset the motor encoder so that it reads zero ticks
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -35,12 +37,12 @@ public class arm6 extends LinearOpMode {
             // If the A button is pressed, raise the arm
             armMotor.setTargetPosition(getPosition());
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            extend(gamepad2.right_stick_y);
             //0.004,0,0.1
             //pidMaybe pid = new pidMaybe(0.004, 0.002,0.08);
-            pidMaybe pid = new pidMaybe(0.004,0,0.1);
+            pidMaybe pid = new pidMaybe(0.004,0.0001,0.2);
             double power = pid.calculatePower(getPosition(), armMotor.getCurrentPosition());
             armMotor.setPower(power);
-
 
             // Get the current position of the armMotor
             double position = armMotor.getCurrentPosition();
@@ -68,5 +70,14 @@ public class arm6 extends LinearOpMode {
         }
         return pos;
     }
+    public void extend(double x){
+        if ((Math.abs(x) > 0.3)) {
+            extender.setPower(x);
+        } else {
+            extender.setPower(0);
+        }
+    }
+
 }
+
 

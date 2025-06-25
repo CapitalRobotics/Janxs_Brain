@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.auto.aprilTags;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.utils.AprilTagController;
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
 
+@Disabled
 @Autonomous(name = "AprilTag Detection Only", group = "Autonomous")
 public class AprilTagClass extends LinearOpMode {
 

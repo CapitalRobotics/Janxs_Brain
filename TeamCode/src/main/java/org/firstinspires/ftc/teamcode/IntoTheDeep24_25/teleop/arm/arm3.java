@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop.arm;
 
 import static com.qualcomm.robotcore.util.Range.clip;
 
@@ -7,10 +7,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.PID2;
-import org.firstinspires.ftc.teamcode.TemplateJanx;
+
 import com.qualcomm.robotcore.util.ElapsedTime;
 @Disabled
 @TeleOp(name = "the one that doesn't really work")

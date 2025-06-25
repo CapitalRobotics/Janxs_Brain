@@ -1,14 +1,14 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.whateverElse;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop.arm;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.TemplateJanx;
-
+@Disabled
 @TeleOp(name = "armTest3")
 public class armBase extends OpMode{
     private static final int ARM_UP_POSITION = 60;

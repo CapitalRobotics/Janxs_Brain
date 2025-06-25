@@ -98,7 +98,17 @@ public class TeleopTemp extends OpMode {
         }
         lastAState = gamepad2.a;
 
-        int targetPosition = armFlag ? armDownPosition : armUpPosition;
+        int targetPosition;
+        if(armFlag)
+        {
+            targetPosition = armDownPosition;
+        }
+        else
+        {
+            targetPosition = armUpPosition;
+        }
+       // int targetPosition = armFlag ? armDownPosition : armUpPosition;
+        // (statement)? true: false
         armMotor.setTargetPosition(targetPosition);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -106,6 +116,10 @@ public class TeleopTemp extends OpMode {
         pidMaybe pid = new pidMaybe(0.004, 0, armMotor);
         double power = pid.calculatePower(targetPosition, armMotor.getCurrentPosition());
         armMotor.setPower(power);
+        //not pid control
+        /**
+        armMotor.setPower(0.5);
+         */
     }
 
     private void clawControl() {

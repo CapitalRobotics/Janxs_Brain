@@ -1,16 +1,16 @@
-package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop;
+package org.firstinspires.ftc.teamcode.IntoTheDeep24_25.teleop.arm;
 
 import static com.qualcomm.robotcore.util.Range.clip;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.IntoTheDeep24_25.pidMaybe;
 import org.firstinspires.ftc.teamcode.TemplateJanx;
-
+@Disabled
 @TeleOp(name = "letMeMoveItMoveIt")
 public class teleOpFull extends OpMode {
     private DcMotorEx frontRight;

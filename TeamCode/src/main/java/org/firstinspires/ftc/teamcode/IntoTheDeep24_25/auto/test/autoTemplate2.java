@@ -20,7 +20,7 @@ public class autoTemplate2 extends TemplateJanx {
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-
+    int flTarget = 0, frTarget=0,blTarget =0,brTarget = 0;
     pidMaybe pid;
     HardwareMap h;
     DcMotorEx extender, arm;
@@ -58,14 +58,21 @@ public class autoTemplate2 extends TemplateJanx {
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    }
+    public void createTargets(double leftInches, double rightInches)
+    {
+        flTarget = fl.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+        blTarget = bl.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+        brTarget = br.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+        frTarget = fr.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
     }
 
-    public void drive(double speed, double leftInches, double rightInches, int timeOuts) {
+    public void drive(double speed,int leftInches, double rightInches) {
         int flTarget = fl.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
         int blTarget = bl.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
         int brTarget = br.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
         int frTarget = fr.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-        while (fl.getCurrentPosition() < flTarget && fr.getCurrentPosition() < frTarget) {
             fl.setTargetPosition(flTarget);
             fr.setTargetPosition(frTarget);
             bl.setTargetPosition(blTarget);
@@ -80,21 +87,30 @@ public class autoTemplate2 extends TemplateJanx {
             br.setPower(1);
             bl.setPower(1);
             fl.setPower(1);
-        }
+    }
+    public void stop()
+    {
         fr.setPower(0);
         br.setPower(0);
         bl.setPower(0);
         fl.setPower(0);
     }
-
-    public void turn(boolean right) {
-        int turn = 33;
-        if (right) {
-            drive(400, -turn, turn, 3);
-        } else {
-            drive(400, turn, -turn, 3);
-        }
+    public double target()
+    {
+        return flTarget;
     }
+    public double current()
+    {
+        return fl.getCurrentPosition();
+    }
+//    public void turn(boolean right) {
+//        int turn = 33;
+//        if (right) {
+//            drive(400, -turn, turn);
+//        } else {
+//            drive(400, turn, -turn);
+//        }
+//    }
 
     public void moveArm(int targetPos) {
         arm.setTargetPosition(targetPos);

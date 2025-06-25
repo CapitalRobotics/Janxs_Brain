@@ -1,6 +1,5 @@
 THINGS TO CHANGE
-- add elbow or change to telescoping
-- have actual control of the arm
-- tensorflow?
-
-this is me checking that it's working
+ - finite state machine -> arm
+ - actually good PID
+ - finish auto
+ -
