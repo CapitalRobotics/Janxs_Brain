@@ -23,7 +23,7 @@ android {
     }
 }
 
-ext.kotlin_version = '1.8.22' // Use appropriate version
+ext.kotlin_version = '1.9.25' // Use appropriate version
 
 dependencies {
     implementation project(':FtcRobotController')
