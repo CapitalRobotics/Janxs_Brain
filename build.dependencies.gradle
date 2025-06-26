@@ -5,7 +5,7 @@ repositories {
 
 dependencies {
     implementation 'org.firstinspires.ftc:Inspection:10.2.0'
-    implementation 'org.firstinspires.ftc:Blocks:10.2.0'
+    implementation 'org.firstinspires.ftc:Blocks:10.3.0'
     implementation 'org.firstinspires.ftc:RobotCore:10.2.0'
     implementation 'org.firstinspires.ftc:RobotServer:10.2.0'
     implementation 'org.firstinspires.ftc:OnBotJava:10.2.0'
